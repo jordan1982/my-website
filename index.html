@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nerd_Workspace // Home</title>
+    <style>
+        /* Setup globale stile Terminale CRT */
+        body {
+            background-color: #0a0f0d;
+            color: #33ff33;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        /* Selezione testo stile terminale */
+        ::selection {
+            background: #33ff33;
+            color: #0a0f0d;
+        }
+
+        header, section, footer {
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+            border: 1px solid #33ff33;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(51, 255, 51, 0.2);
+        }
+
+        h1, h2, h3 {
+            color: #33ff33;
+            border-bottom: 1px dashed #33ff33;
+            padding-bottom: 5px;
+        }
+
+        h1::before { content: "> "; }
+        h2::before { content: "# "; }
+
+        a {
+            color: #00ffff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            background-color: #33ff33;
+            color: #0a0f0d;
+        }
+
+        /* Griglia dei progetti responsiva */
+        .project-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        @media (min-width: 600px) {
+            .project-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        .project-card, .info-card {
+            border: 1px dashed #33ff33;
+            padding: 15px;
+            background: rgba(51, 255, 51, 0.02);
+            margin-bottom: 15px;
+        }
+
+        .status { font-weight: bold; color: #ffb300; }
+        .cursor { animation: blink 1s infinite; }
+        @keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+
+        /* Stile Terminale Interattivo per il Basket */
+        .terminal-box {
+            background-color: #000;
+            border: 1px solid #33ff33;
+            padding: 15px;
+            font-family: monospace;
+            margin-top: 15px;
+        }
+        .terminal-input-line {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .terminal-btn {
+            background: #33ff33;
+            color: #0a0f0d;
+            border: none;
+            padding: 5px 15px;
+            font-family: monospace;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .terminal-btn:hover:not(:disabled) {
+            background: #fff;
+        }
+        .terminal-btn:disabled {
+            background: #225522;
+            color: #0a0f0d;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>NERD_REPOSITORY_v1.2.0<span class="cursor">_</span></h1>
+        <p>Stato del sistema: <span class="status">ONLINE</span> // Logged_as: guest</p>
+    </header>
+
+    <section id="about">
+        <h2>~/chi_sono</h2>
+        <div class="info-card">
+            <p><strong>Identità:</strong> Sviluppatore, smanettatore e curioso cronico. Passo il mio tempo libero a ottimizzare flussi di lavoro, scrivere script e smontare cose (hardware e software).</p>
+        </div>
+
+        <h3>~/passioni</h3>
+        <div class="info-card">
+            <p><strong>Volontariato:</strong> Quando stacco dagli schermi, cerco di mettere la tecnologia al servizio della comunità. Credo che l'impatto sociale più grande si faccia risolvendo problemi reali, che sia configurare una rete o digitalizzare processi per chi ne ha bisogno.</p>
+        </div>
+
+        <div class="info-card">
+            <p><strong>Basket:</strong> Palla a spicchi, parquet e algoritmi. Trovo che ci sia una strana, bellissima geometria nel basket, molto simile alla logica del codice.</p>
+            
+            <div class="terminal-box">
+                <div class="terminal-screen" id="basket-container" style="position: relative; height: 150px; background: #000; overflow: hidden; border-bottom: 1px dashed rgba(51, 255, 51, 0.3); margin-bottom: 10px;">
+                    <div id="basket-target" style="position: absolute; right: 20px; bottom: 10px; font-size: 24px; z-index: 1;">🗑️</div>
+                    <div id="basketball" style="position: absolute; left: 10px; bottom: 10px; font-size: 24px; z-index: 2; transition: none;">🏀</div>
+                    <div id="basket-log" style="position: absolute; top: 10px; left: 10px; font-family: monospace; font-size: 12px; color: #33ff33;">guest@nerd_site:~$ ./shoot_ball.sh</div>
+                </div>
+                <div class="terminal-input-line">
+                    <span>Esegui comando per lanciare:</span>
+                    <button class="terminal-btn" onclick="runPerfectParabola()">LANCIA</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="progetti">
+        <h2>~/progetti_creati</h2>
+        <p>I record seguenti sono estratti dinamicamente da un database JSON locale:</p>
+        <div class="project-grid" id="projects-container">
+            <p>Caricamento moduli in corso...</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 // Stack: HTML5 puro, CSS custom, Vanilla JS. Zero tracker.</p>
+    </footer>
+
+    <script>
+        // 1. IL TUO DATABASE PROGETTI (FORMATO OGGETTO JSON)
+        // Modifica, aggiungi o rimuovi elementi da questo array per aggiornare il sito
+        const progettiJSON = [
+            {
+                "titolo": "Log_Monitor_API",
+                "descrizione": "Script per automatizzare le modifiche e il monitoraggio dei log di sistema attraverso chiamate API dirette.",
+                "link_github": "#",
+                "tag": "Python"
+            },
+            {
+                "titolo": "Budget_Alert_Bot",
+                "descrizione": "Invia notifiche istantanee tramite webhook quando i costi infrastrutturali superano la soglia impostata.",
+                "link_github": "#",
+                "tag": "Serverless"
+            },
+            {
+                "titolo": "Home_Server_Automation",
+                "descrizione": "Insieme di playbook Ansible per configurare un server locale con Docker, Pi-hole e Nextcloud.",
+                "link_github": "#",
+                "tag": "DevOps"
+            }
+        ];
+
+        // Funzione per stampare i progetti dal JSON alla pagina HTML
+        function caricaProgetti() {
+            const container = document.getElementById('projects-container');
+            container.innerHTML = ''; // Svuota il loader grafico
+
+            progettiJSON.forEach(progetto => {
+                const card = document.createElement('div');
+                card.className = 'project-card';
+                card.innerHTML = `
+                    <h3>${progetto.titolo} [${progetto.tag}]</h3>
+                    <p>${progetto.descrizione}</p>
+                    <p><a href="${progetto.link_github}" target="_blank">[Vedi Codice]</a></p>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // 2. FUNZIONE ANIMAZIONE BASKET REALE CON PARABOLA CSS/JS
+        function runPerfectParabola() {
+            const ball = document.getElementById('basketball');
+            const log = document.getElementById('basket-log');
+            const container = document.getElementById('basket-container');
+            const btn = document.querySelector('.terminal-btn');
+            
+            btn.disabled = true;
+            
+            // Calcolo dinamico dello spazio disponibile nel contenitore (compatibile con Mobile)
+            const width = container.clientWidth - 55; 
+            const maxHeight = 95; // Altezza del picco della parabola in pixel
+            
+            let progress = 0; // Percentuale avanzamento del lancio (da 0 a 100)
+            
+            const animation = setInterval(() => {
+                progress += 2; // Step di avanzamento ad ogni frame
+                
+                // Coordinata X lineare
+                let x = (progress / 100) * width;
+                
+                // Coordinata Y matematica: equazione quadratica pura della parabola
+                let p = progress / 100;
+                let y = 4 * maxHeight * p * (1 - p);
+                
+                // Spostamento fisico degli elementi sulla griglia pixel
+                ball.style.left = (10 + x) + 'px';
+                ball.style.bottom = (10 + y) + 'px';
+                
+                // Switch dei log del terminale in tempo reale basato sui progressi
+                if (progress < 50) {
+                    log.textContent = `[LAUNCH]: Spinta idraulica // Altitudine: ${Math.round(y)}px`;
+                } else if (progress < 98) {
+                    log.textContent = `[GRAVITY]: Rientro in atmosfera // Distanza target: ${Math.round(width - x)}px`;
+                } else if (progress >= 100) {
+                    log.textContent = `[STATUS]: SWISH! // Canestro perfetto registrato sul target 🗑️`;
+                    clearInterval(animation);
+                    btn.disabled = false;
+                }
+            }, 16); // ~60 Frame al secondo per una fluidità totale
+        }
+
+        // Inizializza il caricamento dei dati JSON all'apertura del documento
+        window.onload = caricaProgetti;
+    </script>
+</body>
+</html>
