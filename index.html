@@ -5,187 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nerd_Workspace // Home</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        /* Setup globale stile Terminale CRT */
-        body {
-            background-color: #0a0f0d;
-            color: #33ff33;
-            font-family: 'Courier New', Courier, monospace;
-            padding: 20px;
-            line-height: 1.6;
-        }
 
-        /* Selezione testo stile terminale */
-        ::selection {
-            background: #33ff33;
-            color: #0a0f0d;
-        }
-
-        header,
-        section,
-        footer {
-            max-width: 800px;
-            margin: 0 auto 40px auto;
-            border: 1px solid #33ff33;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(51, 255, 51, 0.2);
-        }
-
-        /* Gestione globale dei titoli per evitare l'effetto visto nello screenshot */
-        h1,
-        h2,
-        h3 {
-            color: #33ff33;
-            border-bottom: 1px dashed #33ff33;
-            padding-bottom: 5px;
-            white-space: nowrap;
-            /* Impedisce la rottura disordinata delle stringhe */
-        }
-
-        /* Titolo Principale nell'Header */
-        header h1 {
-            font-size: 2.2rem;
-            line-height: 1.3;
-            margin-top: 10px;
-        }
-
-        /* Sottotitoli delle Sezioni */
-        section h2 {
-            font-size: 1.8rem;
-        }
-
-        section h3 {
-            font-size: 1.4rem;
-        }
-
-        h1::before {
-            content: "> ";
-        }
-
-        h2::before {
-            content: "# ";
-        }
-
-        /* Struttura dei Log nell'Header */
-        .header-logs {
-            display: flex;
-            flex-direction: column;
-            /* Mette ogni log su una riga separata */
-            gap: 5px;
-            margin-top: 15px;
-        }
-
-        a {
-            color: #00ffff;
-            text-decoration: none;
-        }
-
-        a:hover {
-            background-color: #33ff33;
-            color: #0a0f0d;
-        }
-
-        /* Griglia dei progetti responsiva */
-        .project-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-        }
-
-        @media (min-width: 600px) {
-            .project-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        .project-card,
-        .info-card {
-            border: 1px dashed #33ff33;
-            padding: 15px;
-            background: rgba(51, 255, 51, 0.02);
-            margin-bottom: 15px;
-        }
-
-        .status {
-            font-weight: bold;
-            color: #ffb300;
-        }
-
-        .cursor {
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-
-            0%,
-            49% {
-                opacity: 1;
-            }
-
-            50%,
-            100% {
-                opacity: 0;
-            }
-        }
-
-        /* Stile Terminale Interattivo per il Basket */
-        .terminal-box {
-            background-color: #000;
-            border: 1px solid #33ff33;
-            padding: 15px;
-            font-family: monospace;
-            margin-top: 15px;
-        }
-
-        .terminal-input-line {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .terminal-btn {
-            background: #33ff33;
-            color: #0a0f0d;
-            border: none;
-            padding: 5px 15px;
-            font-family: monospace;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .terminal-btn:hover:not(:disabled) {
-            background: #fff;
-        }
-
-        .terminal-btn:disabled {
-            background: #225522;
-            color: #0a0f0d;
-            cursor: not-allowed;
-        }
-
-        /* --- SCREEN FIX COMPLETO PER MOBILE --- */
-        @media (max-width: 480px) {
-            body {
-                padding: 10px;
-            }
-
-            header h1 {
-                font-size: 5.3vw;
-                /* Ridimensiona il titolo del sito */
-            }
-
-            section h2 {
-                font-size: 4.2vw;
-                /* Ridimensiona i path lunghi come ~/root_directory/chi_sono */
-            }
-
-            section h3 {
-                font-size: 4.5vw;
-            }
-        }
     </style>
 </head>
 
@@ -224,15 +46,24 @@
         <!-- Passione 1: Tech & Automazioni Aggiornata -->
         <div class="info-card">
             <p><strong>[TECH_&_AUTOMATION]</strong><br>
-            La mia zona di comfort è davanti a un IDE. Oggi sviluppo principalmente in <strong>Java</strong>, ma nel mio percorso ho scritto codice un po' ovunque: dalle vecchie glorie come <strong>Delphi</strong> e <strong>Visual Basic</strong>, fino a <strong>PHP</strong> e ai moderni ecosistemi in <strong>React</strong>.</p>
-            
-            <p>Amo follemente l'integrazione di sistemi tramite API e la creazione di script custom per eliminare qualsiasi task ripetitivo. Questa fissa per l'automazione è scappata fuori dal computer ed è finita dritto dentro casa, che ho completamente domotizzato usando <strong>HomeAssistant</strong>.</p>
+                La mia zona di comfort è davanti a un IDE. Oggi sviluppo principalmente in <strong>Java</strong>, ma nel
+                mio percorso ho scritto codice un po' ovunque: dalle vecchie glorie come <strong>Delphi</strong> e
+                <strong>Visual Basic</strong>, fino a <strong>PHP</strong> e ai moderni ecosistemi in
+                <strong>React</strong>.
+            </p>
+
+            <p>Amo follemente l'integrazione di sistemi tramite API e la creazione di script custom per eliminare
+                qualsiasi task ripetitivo. Questa fissa per l'automazione è scappata fuori dal computer ed è finita
+                dritto dentro casa, che ho completamente domotizzato usando <strong>HomeAssistant</strong>.</p>
         </div>
 
         <div class="info-card">
             <p><strong>[VOLONTARIATO_DI_QUARTIERE]</strong><br>
-            Il volontariato è il mio modo preferito per staccare la spina dal codice e dagli schermi. Do una mano a due realtà della mia zona, <strong>[Nome Associazione 1]</strong> e <strong>[Nome Associazione 2]</strong>, per un motivo molto semplice: amo il mio quartiere, credo sia giusto valorizzarlo e penso che creare una comunità unita e solidale sotto casa sia fondamentale.</p>
-        
+                Il volontariato è il mio modo preferito per staccare la spina dal codice e dagli schermi. Do una mano a
+                due realtà della mia zona, <strong>[Nome Associazione 1]</strong> e <strong>[Nome Associazione
+                    2]</strong>, per un motivo molto semplice: amo il mio quartiere, credo sia giusto valorizzarlo e
+                penso che creare una comunità unita e solidale sotto casa sia fondamentale.</p>
+
 
             <div class="terminal-box">
                 <div class="terminal-screen" id="cleaner-container"
@@ -277,6 +108,51 @@
         </div>
     </section>
 
+    <!-- Sezione Mini-Gioco Hangman / Hacking -->
+    <section id="terminal-game">
+        <h2>~/root_directory/sys_attack</h2>
+        <div class="info-card">
+            <p><strong>[SSH_AUTHENTICATION_BYPASS]</strong><br>
+                Il sistema richiede l'inserimento della chiave di sicurezza per identificare l'amministratore. Rispondi
+                alla query del terminale.</p>
+
+            <p id="game-hint"
+                style="color: #00ffff; font-family: monospace; border-left: 3px solid #00ffff; padding-left: 10px; margin: 15px 0; font-size: 14px;">
+                Caricamento query di sistema...
+            </p>
+
+            <div class="terminal-box" style="background-color: #000; border: 1px solid #33ff33; padding: 15px;">
+                <div id="game-log"
+                    style="font-size: 12px; color: #33ff33; margin-bottom: 15px; font-family: monospace;">
+                    guest@space:~$ ./ssh_auth_bypass.sh --start
+                </div>
+
+                <div id="word-display"
+                    style="font-size: 24px; letter-spacing: 8px; font-weight: bold; text-align: center; margin: 20px 0; min-height: 35px; font-family: monospace;">
+                    _ _ _ _ _
+                </div>
+
+                <div
+                    style="font-family: monospace; font-size: 13px; margin-bottom: 15px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                    <span>TENTATIVI RIMASTI: <span id="attempts-left"
+                            style="color: #ffb300; font-weight: bold;">6</span></span>
+                    <span>LETTERE USATE: [<span id="used-letters" style="color: #00ffff;">nessuna</span>]</span>
+                </div>
+
+                <div class="terminal-input-line"
+                    style="border-top: 1px dashed rgba(51, 255, 51, 0.3); padding-top: 15px; display: flex; flex-direction: column; align-items: stretch; gap: 10px;">
+                    <div style="font-family: monospace; font-size: 13px;">Esegui immissione caratteri (Brute-Force):
+                    </div>
+                    <div id="keyboard-container"
+                        style="display: grid; grid-template-columns: repeat(auto-fill, minmax(30px, 1fr)); gap: 5px; width: 100%;">
+                    </div>
+                    <button class="terminal-btn" id="reset-game-btn" onclick="initHangmanGame()"
+                        style="align-self: flex-end; margin-top: 5px; display: none;">GENERA NUOVA QUERY</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="progetti">
         <h2>~/progetti_creati</h2>
         <p>I record seguenti sono estratti dinamicamente da un database JSON locale:</p>
@@ -289,168 +165,7 @@
         <p>© 2026 // Stack: HTML5 puro, CSS custom, Vanilla JS. Zero tracker.</p>
     </footer>
 
-    <script>
-        // 1. IL TUO DATABASE PROGETTI (FORMATO OGGETTO JSON)
-        // Modifica, aggiungi o rimuovi elementi da questo array per aggiornare il sito
-        const progettiJSON = [
-            {
-                "titolo": "Log_Monitor_API",
-                "descrizione": "Script per automatizzare le modifiche e il monitoraggio dei log di sistema attraverso chiamate API dirette.",
-                "link_github": "#",
-                "tag": "Python"
-            },
-            {
-                "titolo": "Budget_Alert_Bot",
-                "descrizione": "Invia notifiche istantanee tramite webhook quando i costi infrastrutturali superano la soglia impostata.",
-                "link_github": "#",
-                "tag": "Serverless"
-            },
-            {
-                "titolo": "Home_Server_Automation",
-                "descrizione": "Insieme di playbook Ansible per configurare un server locale con Docker, Pi-hole e Nextcloud.",
-                "link_github": "#",
-                "tag": "DevOps"
-            }
-        ];
-
-        // Funzione per stampare i progetti dal JSON alla pagina HTML
-        function caricaProgetti() {
-            const container = document.getElementById('projects-container');
-            container.innerHTML = ''; // Svuota il loader grafico
-
-            progettiJSON.forEach(progetto => {
-                const card = document.createElement('div');
-                card.className = 'project-card';
-                card.innerHTML = `
-                    <h3>${progetto.titolo} [${progetto.tag}]</h3>
-                    <p>${progetto.descrizione}</p>
-                    <p><a href="${progetto.link_github}" target="_blank">[Vedi Codice]</a></p>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        // 3. SIMULATORE OMINO VOLONTARIO IN ASCII ART (Y CAPOVOLTA)
-        // 3. SIMULATORE OMINO VOLONTARIO CON RESET INIZIALE
-        function runEcoCleaner() {
-            const env = document.getElementById('cleaner-env');
-            const log = document.getElementById('cleaner-log');
-            const btn = document.getElementById('cleaner-btn');
-
-            btn.disabled = true;
-            env.innerHTML = "";
-
-            // Configurazione Rifiuti (puoi cambiare questi simboli con quelli che preferisci)
-            const rifiuti = ["🍂", "🍾", "📰", "🥫", "🚬","🪫"];
-
-            // Generiamo il percorso di 22 slot
-            let mappa = new Array(22).fill(" ");
-            mappa[4] = rifiuti[0];
-            mappa[9] = rifiuti[1];
-            mappa[14] = rifiuti[2];
-            mappa[19] = rifiuti[3];
-
-            let posOmino = 0;
-            let saccoRifiuti = 0;
-
-            env.parentElement.style.height = "120px";
-
-            const gameLoop = setInterval(() => {
-                // Controllo collisione
-                if (mappa[posOmino] !== " ") {
-                    saccoRifiuti++;
-                    log.textContent = `[EVENT]: Rifiuto raccolto! Sacco: ${saccoRifiuti}/4`;
-                }
-
-                // Creiamo le due righe del frame corrente
-                let rigaTesta = new Array(22).fill(" ");
-                let rigaCorpo = [...mappa];
-
-                // Disegniamo l'omino nella posizione corrente
-                rigaTesta[posOmino] = "o";
-                rigaCorpo[posOmino] = "⅄";
-
-                // Renderizziamo il frame
-                env.innerHTML = `
-<div style="white-space: pre; font-family: monospace; line-height: 1.1; letter-spacing: 2px; color: #33ff33;">${rigaTesta.join("")}</div>
-<div style="white-space: pre; font-family: monospace; line-height: 1.1; letter-spacing: 2px; color: #33ff33;">${rigaCorpo.join("")}</div>
-<div style="color: #225522; margin-top: 2px;">____________________________________________________</div>
-        `.trim();
-
-                // Pulisce il terreno dove è passato l'omino
-                mappa[posOmino] = " ";
-
-                posOmino++;
-
-                // Fine del percorso
-                if (posOmino >= mappa.length) {
-                    clearInterval(gameLoop);
-                    log.textContent = `[STATUS]: Ronda completata. Strade pulite! [Rifiuti rimossi: ${saccoRifiuti}]`;
-
-                    // --- FIX: RIPOSIZIONA L'OMINO ALL'INIZIO ---
-                    setTimeout(() => {
-                        let rigaTestaReset = new Array(22).fill(" ");
-                        let rigaCorpoReset = new Array(22).fill(" ");
-                        rigaTestaReset[0] = "o";
-                        rigaCorpoReset[0] = "⅄";
-
-                        env.innerHTML = `
-<div style="white-space: pre; font-family: monospace; line-height: 1.1; letter-spacing: 2px; color: #33ff33;">${rigaTestaReset.join("")}</div>
-<div style="white-space: pre; font-family: monospace; line-height: 1.1; letter-spacing: 2px; color: #33ff33;">${rigaCorpoReset.join("")}</div>
-<div style="color: #225522; margin-top: 2px;">____________________________________________________</div>
-                `.trim();
-
-                        btn.disabled = false; // Riabilita il bottone solo dopo il reset visivo
-                    }, 600); // Mezzo secondo di pausa prima di scattare all'inizio
-                }
-            }, 180);
-        }
-
-        // 2. FUNZIONE ANIMAZIONE BASKET REALE CON PARABOLA CSS/JS
-        function runPerfectParabola() {
-            const ball = document.getElementById('basketball');
-            const log = document.getElementById('basket-log');
-            const container = document.getElementById('basket-container');
-            const btn = document.querySelector('.terminal-btn');
-
-            btn.disabled = true;
-
-            // Calcolo dinamico dello spazio disponibile nel contenitore (compatibile con Mobile)
-            const width = container.clientWidth - 55;
-            const maxHeight = 95; // Altezza del picco della parabola in pixel
-
-            let progress = 0; // Percentuale avanzamento del lancio (da 0 a 100)
-
-            const animation = setInterval(() => {
-                progress += 2; // Step di avanzamento ad ogni frame
-
-                // Coordinata X lineare
-                let x = (progress / 100) * width;
-
-                // Coordinata Y matematica: equazione quadratica pura della parabola
-                let p = progress / 100;
-                let y = 4 * maxHeight * p * (1 - p);
-
-                // Spostamento fisico degli elementi sulla griglia pixel
-                ball.style.left = (10 + x) + 'px';
-                ball.style.bottom = (10 + y) + 'px';
-
-                // Switch dei log del terminale in tempo reale basato sui progressi
-                if (progress < 50) {
-                    log.textContent = `[LAUNCH]: Spinta idraulica // Altitudine: ${Math.round(y)}px`;
-                } else if (progress < 98) {
-                    log.textContent = `[GRAVITY]: Rientro in atmosfera // Distanza target: ${Math.round(width - x)}px`;
-                } else if (progress >= 100) {
-                    log.textContent = `[STATUS]: SWISH! // Canestro perfetto registrato sul target 🗑️`;
-                    clearInterval(animation);
-                    btn.disabled = false;
-                }
-            }, 16); // ~60 Frame al secondo per una fluidità totale
-        }
-
-        // Inizializza il caricamento dei dati JSON all'apertura del documento
-        window.onload = caricaProgetti;
-    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>
