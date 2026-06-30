@@ -173,6 +173,7 @@ const databaseDomande = [
     {
         Q: "QUERY: Quale linguaggio di programmazione, famoso per la sua JVM, usi come linguaggio principale?",
         A: 2105674328 
+    },
     {
         Q: "QUERY: Quale hub software open-source utilizzi per gestire e automatizzare la tua domotica di casa?",
         A: 1042761895 
@@ -316,4 +317,10 @@ function disableAllKeyButtons() {
     document.querySelectorAll('#keyboard-container .terminal-btn').forEach(btn => btn.disabled = true);
 }
 
-window.addEventListener('DOMContentLoaded', initHangmanGame);
+// Boot sicuro dei giochi all'avvio (attende che l'HTML sia interamente caricato)
+window.addEventListener('DOMContentLoaded', () => {
+    // Verifica che l'elemento del gioco esista nella pagina attuale prima di avviarlo
+    if (document.getElementById('game-hint')) {
+        initHangmanGame();
+    }
+});
