@@ -203,3 +203,7 @@ a:hover {
         font-size: 4.5vw;
     }
 }
+
+html {
+    scroll-behavior: smooth;
+}

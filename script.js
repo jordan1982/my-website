@@ -399,3 +399,42 @@ window.addEventListener('DOMContentLoaded', () => {
         initHangmanGame();
     }
 });
+
+
+// ==========================================
+// NUOVO MINI-GIOCO: RIGORE DEL FANTACALCIO
+// ==========================================
+function tiraRigore(direzioneUtente) {
+    const log = document.getElementById('striker-log');
+    const bottoni = document.querySelectorAll('#striker-controls .terminal-btn');
+    if (!log) return;
+
+    // Disabilita temporaneamente i bottoni durante l'animazione del tiro
+    bottoni.forEach(btn => btn.disabled = true);
+    log.textContent = `[LAUNCH]: Il pallone è partito verso: ${direzioneUtente.toUpperCase()}...`;
+    log.style.color = "#ffb300";
+
+    setTimeout(() => {
+        const direzioniPortiere = ['sinistra', 'centro', 'destra'];
+        // Scelta casuale del portiere
+        const direzionePortiere = direzioniPortiere[Math.floor(Math.random() * direzioniPortiere.length)];
+
+        if (direzioneUtente === direzionePortiere) {
+            log.textContent = `[PARATA]: Il portiere si è tuffato a ${direzionePortiere} e ha bloccato il tiro! Malus applicato.`;
+            log.style.color = "#ff3333";
+            modificaPunteggio(-30); // Sottrae punti in caso di parata
+        } else {
+            log.textContent = `[GOAL!!]: Il portiere è andato a ${direzionePortiere} mentre tu hai piazzato la palla a ${direzioneUtente}! +3 +1 (+70 PTS di sistema).`;
+            log.style.color = "#33ff33";
+            modificaPunteggio(70); // Aggiunge 70 punti al System Score globale
+        }
+
+        // Riattiva i bottoni per un altro tentativo dopo 1.5 secondi
+        setTimeout(() => {
+            bottoni.forEach(btn => btn.disabled = false);
+            log.textContent = `[STATUS]: Palla riposizionata sul dischetto. Pronto per un nuovo tiro.`;
+            log.style.color = "#33ff33";
+        }, 1500);
+
+    }, 1000); // 1 secondo di suspense per il tiro
+}
