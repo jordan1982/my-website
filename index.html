@@ -221,17 +221,18 @@
         </div>
 
         <h3>~/root_directory/le_mie_passioni</h3>
-
+        <!-- Passione 1: Tech & Automazioni Aggiornata -->
         <div class="info-card">
             <p><strong>[TECH_&_AUTOMATION]</strong><br>
-                La mia zona di comfort è davanti a un IDE. Amo l'integrazione di sistemi tramite API e la creazione di
-                script custom che fanno risparmiare tempo eliminando i task ripetitivi.</p>
+            La mia zona di comfort è davanti a un IDE. Oggi sviluppo principalmente in <strong>Java</strong>, ma nel mio percorso ho scritto codice un po' ovunque: dalle vecchie glorie come <strong>Delphi</strong> e <strong>Visual Basic</strong>, fino a <strong>PHP</strong> e ai moderni ecosistemi in <strong>React</strong>.</p>
+            
+            <p>Amo follemente l'integrazione di sistemi tramite API e la creazione di script custom per eliminare qualsiasi task ripetitivo. Questa fissa per l'automazione è scappata fuori dal computer ed è finita dritto dentro casa, che ho completamente domotizzato usando <strong>HomeAssistant</strong>.</p>
         </div>
 
         <div class="info-card">
             <p><strong>[VOLONTARIATO_DI_QUARTIERE]</strong><br>
-                Il mio modo di fare "commit" nel mondo reale. Traduco le esigenze delle associazioni locali in soluzioni
-                digitali concrete o infrastrutture stabili per supportare chi aiuta gli altri.</p>
+            Il volontariato è il mio modo preferito per staccare la spina dal codice e dagli schermi. Do una mano a due realtà della mia zona, <strong>[Nome Associazione 1]</strong> e <strong>[Nome Associazione 2]</strong>, per un motivo molto semplice: amo il mio quartiere, credo sia giusto valorizzarlo e penso che creare una comunità unita e solidale sotto casa sia fondamentale.</p>
+        
 
             <div class="terminal-box">
                 <div class="terminal-screen" id="cleaner-container"
@@ -329,67 +330,81 @@
             });
         }
 
-       // 3. SIMULATORE OMINO VOLONTARIO IN ASCII ART (Y CAPOVOLTA)
-function runEcoCleaner() {
-    const env = document.getElementById('cleaner-env');
-    const log = document.getElementById('cleaner-log');
-    const btn = document.getElementById('cleaner-btn');
-    
-    btn.disabled = true;
-    env.innerHTML = ""; 
-    
-    // Configurazione Rifiuti
+        // 3. SIMULATORE OMINO VOLONTARIO IN ASCII ART (Y CAPOVOLTA)
+        // 3. SIMULATORE OMINO VOLONTARIO CON RESET INIZIALE
+        function runEcoCleaner() {
+            const env = document.getElementById('cleaner-env');
+            const log = document.getElementById('cleaner-log');
+            const btn = document.getElementById('cleaner-btn');
 
-    const rifiuti = ["🍂", "🍾", "📰", "🥫", "🚬","🪫"];
-// Foglie secche, giornale vecchio, lattina, mozzicone
-    
-    // Generiamo il percorso di 22 slot
-    let mappa = new Array(22).fill(" ");
-    mappa[4] = rifiuti[0];
-    mappa[9] = rifiuti[1];
-    mappa[14] = rifiuti[2];
-    mappa[19] = rifiuti[3];
-    
-    let posOmino = 0;
-    let saccoRifiuti = 0;
-    
-    // Regoliamo l'altezza per le due righe dell'omino
-    env.parentElement.style.height = "120px";
+            btn.disabled = true;
+            env.innerHTML = "";
 
-    const gameLoop = setInterval(() => {
-        // Controllo collisione
-        if (mappa[posOmino] !== " ") {
-            saccoRifiuti++;
-            log.textContent = `[EVENT]: Rifiuto raccolto! Sacco: ${saccoRifiuti}/4`;
-        }
-        
-        // Creiamo le due righe del frame corrente
-        let rigaTesta = new Array(22).fill(" ");
-        let rigaCorpo = [...mappa]; // I rifiuti stanno a terra, sulla riga del corpo
-        
-        // Disegniamo l'omino alto (o = testa, ⅄ = corpo con gambe a terra)
-        rigaTesta[posOmino] = "o";
-        rigaCorpo[posOmino] = "⅄"; 
-        
-        // Renderizziamo il frame nel terminale
-        env.innerHTML = `
+            // Configurazione Rifiuti (puoi cambiare questi simboli con quelli che preferisci)
+            const rifiuti = ["🍂", "🍾", "📰", "🥫", "🚬","🪫"];
+
+            // Generiamo il percorso di 22 slot
+            let mappa = new Array(22).fill(" ");
+            mappa[4] = rifiuti[0];
+            mappa[9] = rifiuti[1];
+            mappa[14] = rifiuti[2];
+            mappa[19] = rifiuti[3];
+
+            let posOmino = 0;
+            let saccoRifiuti = 0;
+
+            env.parentElement.style.height = "120px";
+
+            const gameLoop = setInterval(() => {
+                // Controllo collisione
+                if (mappa[posOmino] !== " ") {
+                    saccoRifiuti++;
+                    log.textContent = `[EVENT]: Rifiuto raccolto! Sacco: ${saccoRifiuti}/4`;
+                }
+
+                // Creiamo le due righe del frame corrente
+                let rigaTesta = new Array(22).fill(" ");
+                let rigaCorpo = [...mappa];
+
+                // Disegniamo l'omino nella posizione corrente
+                rigaTesta[posOmino] = "o";
+                rigaCorpo[posOmino] = "⅄";
+
+                // Renderizziamo il frame
+                env.innerHTML = `
 <div style="white-space: pre; font-family: monospace; line-height: 1.1; letter-spacing: 2px; color: #33ff33;">${rigaTesta.join("")}</div>
 <div style="white-space: pre; font-family: monospace; line-height: 1.1; letter-spacing: 2px; color: #33ff33;">${rigaCorpo.join("")}</div>
 <div style="color: #225522; margin-top: 2px;">____________________________________________________</div>
         `.trim();
-        
-        // Pulisce il terreno dove è passato l'omino
-        mappa[posOmino] = " ";
-        
-        posOmino++;
-        
-        if (posOmino >= mappa.length) {
-            clearInterval(gameLoop);
-            log.textContent = `[STATUS]: Pulizia di quartiere completata. Strade pulite! [Rifiuti rimossi: ${saccoRifiuti}]`;
-            btn.disabled = false;
+
+                // Pulisce il terreno dove è passato l'omino
+                mappa[posOmino] = " ";
+
+                posOmino++;
+
+                // Fine del percorso
+                if (posOmino >= mappa.length) {
+                    clearInterval(gameLoop);
+                    log.textContent = `[STATUS]: Ronda completata. Strade pulite! [Rifiuti rimossi: ${saccoRifiuti}]`;
+
+                    // --- FIX: RIPOSIZIONA L'OMINO ALL'INIZIO ---
+                    setTimeout(() => {
+                        let rigaTestaReset = new Array(22).fill(" ");
+                        let rigaCorpoReset = new Array(22).fill(" ");
+                        rigaTestaReset[0] = "o";
+                        rigaCorpoReset[0] = "⅄";
+
+                        env.innerHTML = `
+<div style="white-space: pre; font-family: monospace; line-height: 1.1; letter-spacing: 2px; color: #33ff33;">${rigaTestaReset.join("")}</div>
+<div style="white-space: pre; font-family: monospace; line-height: 1.1; letter-spacing: 2px; color: #33ff33;">${rigaCorpoReset.join("")}</div>
+<div style="color: #225522; margin-top: 2px;">____________________________________________________</div>
+                `.trim();
+
+                        btn.disabled = false; // Riabilita il bottone solo dopo il reset visivo
+                    }, 600); // Mezzo secondo di pausa prima di scattare all'inizio
+                }
+            }, 180);
         }
-    }, 180);
-}
 
         // 2. FUNZIONE ANIMAZIONE BASKET REALE CON PARABOLA CSS/JS
         function runPerfectParabola() {
