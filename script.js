@@ -1,164 +1,169 @@
-// 1. IL TUO DATABASE PROGETTI (FORMATO OGGETTO JSON)
-        // Modifica, aggiungi o rimuovi elementi da questo array per aggiornare il sito
-        const progettiJSON = [
-            {
-                "titolo": "Log_Monitor_API",
-                "descrizione": "Script per automatizzare le modifiche e il monitoraggio dei log di sistema attraverso chiamate API dirette.",
-                "link_github": "#",
-                "tag": "Python"
-            },
-            {
-                "titolo": "Budget_Alert_Bot",
-                "descrizione": "Invia notifiche istantanee tramite webhook quando i costi infrastrutturali superano la soglia impostata.",
-                "link_github": "#",
-                "tag": "Serverless"
-            },
-            {
-                "titolo": "Home_Server_Automation",
-                "descrizione": "Insieme di playbook Ansible per configurare un server locale con Docker, Pi-hole e Nextcloud.",
-                "link_github": "#",
-                "tag": "DevOps"
-            }
-        ];
+// ==========================================
+// GLOBALS & PUNTEGGIO
+// ==========================================
+let userScore = 0;
 
-        // Funzione per stampare i progetti dal JSON alla pagina HTML
-        function caricaProgetti() {
-            const container = document.getElementById('projects-container');
-            container.innerHTML = ''; // Svuota il loader grafico
+function modificaPunteggio(valore) {
+    userScore += valore;
+    if (userScore < 0) userScore = 0; // Evitiamo punteggi negativi assurdi
+    const scoreEl = document.getElementById('user-score');
+    if (scoreEl) {
+        scoreEl.textContent = userScore;
+        // Effetto flash visivo al cambio punteggio
+        scoreEl.style.color = valore > 0 ? "#33ff33" : "#ff3333";
+        setTimeout(() => { scoreEl.style.color = "#ffb300"; }, 300);
+    }
+}
 
-            progettiJSON.forEach(progetto => {
-                const card = document.createElement('div');
-                card.className = 'project-card';
-                card.innerHTML = `
-                    <h3>${progetto.titolo} [${progetto.tag}]</h3>
-                    <p>${progetto.descrizione}</p>
-                    <p><a href="${progetto.link_github}" target="_blank">[Vedi Codice]</a></p>
-                `;
-                container.appendChild(card);
-            });
+// ==========================================
+// 1. DATABASE PROGETTI (FORMATO OGGETTO JSON)
+// ==========================================
+const progettiJSON = [
+    {
+        "titolo": "Log_Monitor_API",
+        "descrizione": "Script per automatizzare le modifiche e il monitoraggio dei log di sistema attraverso chiamate API dirette.",
+        "link_github": "#",
+        "tag": "Python"
+    },
+    {
+        "titolo": "Budget_Alert_Bot",
+        "descrizione": "Invia notifiche istantanee tramite webhook quando i costi infrastrutturali superano la soglia impostata.",
+        "link_github": "#",
+        "tag": "Serverless"
+    },
+    {
+        "titolo": "Home_Server_Automation",
+        "descrizione": "Insieme di playbook Ansible per configurare un server locale con Docker, Pi-hole e Nextcloud.",
+        "link_github": "#",
+        "tag": "DevOps"
+    }
+];
+
+function caricaProgetti() {
+    const container = document.getElementById('projects-container');
+    if (!container) return;
+    container.innerHTML = ''; 
+
+    progettiJSON.forEach(progetto => {
+        const card = document.createElement('div');
+        card.className = 'project-card';
+        card.innerHTML = `
+            <h3>${progetto.titolo} [${progetto.tag}]</h3>
+            <p>${progetto.descrizione}</p>
+            <p><a href="${progetto.link_github}" target="_blank">[Vedi Codice]</a></p>
+        `;
+        container.appendChild(card);
+    });
+}
+
+// ==========================================
+// 2. MINI-GIOCO: OMINO ECO-CLEANER
+// ==========================================
+function runEcoCleaner() {
+    const env = document.getElementById('cleaner-env');
+    const log = document.getElementById('cleaner-log');
+    const btn = document.getElementById('cleaner-btn');
+
+    if (!env || !log || !btn) return;
+
+    btn.disabled = true;
+    env.innerHTML = "";
+
+    const rifiuti = ["🍂", "🍾", "📰", "🥫", "🚬", "🪫"];
+    let mappa = new Array(22).fill(" ");
+    mappa[4] = rifiuti[0];
+    mappa[9] = rifiuti[1];
+    mappa[14] = rifiuti[2];
+    mappa[19] = rifiuti[3];
+
+    let posOmino = 0;
+    let saccoRifiuti = 0;
+    env.parentElement.style.height = "120px";
+
+    const gameLoop = setInterval(() => {
+        if (mappa[posOmino] !== " ") {
+            saccoRifiuti++;
+            log.textContent = `[EVENT]: Rifiuto raccolto! Sacco: ${saccoRifiuti}/4`;
+            modificaPunteggio(10); // +10 punti per ogni pezzo di spazzatura raccolto
         }
 
-        // 3. SIMULATORE OMINO VOLONTARIO IN ASCII ART (Y CAPOVOLTA)
-        // 3. SIMULATORE OMINO VOLONTARIO CON RESET INIZIALE
-        function runEcoCleaner() {
-            const env = document.getElementById('cleaner-env');
-            const log = document.getElementById('cleaner-log');
-            const btn = document.getElementById('cleaner-btn');
+        let rigaTesta = new Array(22).fill(" ");
+        let rigaCorpo = [...mappa];
 
-            btn.disabled = true;
-            env.innerHTML = "";
+        rigaTesta[posOmino] = "o";
+        rigaCorpo[posOmino] = "⅄";
 
-            // Configurazione Rifiuti (puoi cambiare questi simboli con quelli che preferisci)
-            const rifiuti = ["🍂", "🍾", "📰", "🥫", "🚬", "🪫"];
-
-            // Generiamo il percorso di 22 slot
-            let mappa = new Array(22).fill(" ");
-            mappa[4] = rifiuti[0];
-            mappa[9] = rifiuti[1];
-            mappa[14] = rifiuti[2];
-            mappa[19] = rifiuti[3];
-
-            let posOmino = 0;
-            let saccoRifiuti = 0;
-
-            env.parentElement.style.height = "120px";
-
-            const gameLoop = setInterval(() => {
-                // Controllo collisione
-                if (mappa[posOmino] !== " ") {
-                    saccoRifiuti++;
-                    log.textContent = `[EVENT]: Rifiuto raccolto! Sacco: ${saccoRifiuti}/4`;
-                }
-
-                // Creiamo le due righe del frame corrente
-                let rigaTesta = new Array(22).fill(" ");
-                let rigaCorpo = [...mappa];
-
-                // Disegniamo l'omino nella posizione corrente
-                rigaTesta[posOmino] = "o";
-                rigaCorpo[posOmino] = "⅄";
-
-                // Renderizziamo il frame
-                env.innerHTML = `
+        env.innerHTML = `
 <div style="white-space: pre; font-family: monospace; line-height: 1.1; letter-spacing: 2px; color: #33ff33;">${rigaTesta.join("")}</div>
 <div style="white-space: pre; font-family: monospace; line-height: 1.1; letter-spacing: 2px; color: #33ff33;">${rigaCorpo.join("")}</div>
-<div style="color: #225522; margin-top: 2px;">____________________________________________________</div>
-        `.trim();
+<div style="color: #225522; margin-top: 2px;">____________________________________________________</div>`.trim();
 
-                // Pulisce il terreno dove è passato l'omino
-                mappa[posOmino] = " ";
+        mappa[posOmino] = " ";
+        posOmino++;
 
-                posOmino++;
+        if (posOmino >= mappa.length) {
+            clearInterval(gameLoop);
+            log.textContent = `[STATUS]: Ronda completata. Strade pulite! [Rifiuti rimossi: ${saccoRifiuti}]`;
 
-                // Fine del percorso
-                if (posOmino >= mappa.length) {
-                    clearInterval(gameLoop);
-                    log.textContent = `[STATUS]: Ronda completata. Strade pulite! [Rifiuti rimossi: ${saccoRifiuti}]`;
+            setTimeout(() => {
+                let rigaTestaReset = new Array(22).fill(" ");
+                let rigaCorpoReset = new Array(22).fill(" ");
+                rigaTestaReset[0] = "o";
+                rigaCorpoReset[0] = "⅄";
 
-                    // --- FIX: RIPOSIZIONA L'OMINO ALL'INIZIO ---
-                    setTimeout(() => {
-                        let rigaTestaReset = new Array(22).fill(" ");
-                        let rigaCorpoReset = new Array(22).fill(" ");
-                        rigaTestaReset[0] = "o";
-                        rigaCorpoReset[0] = "⅄";
-
-                        env.innerHTML = `
+                env.innerHTML = `
 <div style="white-space: pre; font-family: monospace; line-height: 1.1; letter-spacing: 2px; color: #33ff33;">${rigaTestaReset.join("")}</div>
 <div style="white-space: pre; font-family: monospace; line-height: 1.1; letter-spacing: 2px; color: #33ff33;">${rigaCorpoReset.join("")}</div>
-<div style="color: #225522; margin-top: 2px;">____________________________________________________</div>
-                `.trim();
+<div style="color: #225522; margin-top: 2px;">____________________________________________________</div>`.trim();
 
-                        btn.disabled = false; // Riabilita il bottone solo dopo il reset visivo
-                    }, 600); // Mezzo secondo di pausa prima di scattare all'inizio
-                }
-            }, 180);
+                btn.disabled = false; 
+            }, 600); 
         }
+    }, 180);
+}
 
-        // 2. FUNZIONE ANIMAZIONE BASKET REALE CON PARABOLA CSS/JS
-        function runPerfectParabola() {
-            const ball = document.getElementById('basketball');
-            const log = document.getElementById('basket-log');
-            const container = document.getElementById('basket-container');
-            const btn = document.querySelector('.terminal-btn');
+// ==========================================
+// 3. MINI-GIOCO: BASKET
+// ==========================================
+function runPerfectParabola() {
+    const ball = document.getElementById('basketball');
+    const log = document.getElementById('basket-log');
+    const container = document.getElementById('basket-container');
+    const btn = document.querySelector('#basket-container-wrapper .terminal-btn') || document.querySelector('.terminal-btn');
 
-            btn.disabled = true;
+    if (!ball || !log || !container) return;
+    if (btn) btn.disabled = true;
 
-            // Calcolo dinamico dello spazio disponibile nel contenitore (compatibile con Mobile)
-            const width = container.clientWidth - 55;
-            const maxHeight = 95; // Altezza del picco della parabola in pixel
+    const width = container.clientWidth - 55;
+    const maxHeight = 95; 
+    let progress = 0; 
 
-            let progress = 0; // Percentuale avanzamento del lancio (da 0 a 100)
+    const animation = setInterval(() => {
+        progress += 2; 
 
-            const animation = setInterval(() => {
-                progress += 2; // Step di avanzamento ad ogni frame
+        let x = (progress / 100) * width;
+        let p = progress / 100;
+        let y = 4 * maxHeight * p * (1 - p);
 
-                // Coordinata X lineare
-                let x = (progress / 100) * width;
+        ball.style.left = (10 + x) + 'px';
+        ball.style.bottom = (10 + y) + 'px';
 
-                // Coordinata Y matematica: equazione quadratica pura della parabola
-                let p = progress / 100;
-                let y = 4 * maxHeight * p * (1 - p);
-
-                // Spostamento fisico degli elementi sulla griglia pixel
-                ball.style.left = (10 + x) + 'px';
-                ball.style.bottom = (10 + y) + 'px';
-
-                // Switch dei log del terminale in tempo reale basato sui progressi
-                if (progress < 50) {
-                    log.textContent = `[LAUNCH]: Spinta idraulica // Altitudine: ${Math.round(y)}px`;
-                } else if (progress < 98) {
-                    log.textContent = `[GRAVITY]: Rientro in atmosfera // Distanza target: ${Math.round(width - x)}px`;
-                } else if (progress >= 100) {
-                    log.textContent = `[STATUS]: SWISH! // Canestro perfetto registrato sul target 🗑️`;
-                    clearInterval(animation);
-                    btn.disabled = false;
-                }
-            }, 16); // ~60 Frame al secondo per una fluidità totale
+        if (progress < 50) {
+            log.textContent = `[LAUNCH]: Spinta idraulica // Altitudine: ${Math.round(y)}px`;
+        } else if (progress < 98) {
+            log.textContent = `[GRAVITY]: Rientro in atmosfera // Distanza target: ${Math.round(width - x)}px`;
+        } else if (progress >= 100) {
+            log.textContent = `[STATUS]: SWISH! // Canestro perfetto registrato sul target 🗑️`;
+            clearInterval(animation);
+            modificaPunteggio(50); // +50 punti per un canestro perfetto!
+            if (btn) btn.disabled = false;
         }
+    }, 16); 
+}
 
-        // Inizializza il caricamento dei dati JSON all'apertura del documento
-        window.onload = caricaProgetti;
-// Funzione di Hashing super leggera. Trasforma una stringa in un numero unico imprevedibile.
+// ==========================================
+// 4. MINI-GIOCO: TRIVIA SSH (ANTI-ISPEZIONE)
+// ==========================================
 function calcolaHash(str) {
     let hash = 5381;
     for (let i = 0; i < str.length; i++) {
@@ -167,8 +172,6 @@ function calcolaHash(str) {
     return hash;
 }
 
-// Database delle domande. Le risposte sono HASH NUMERICI.
-// Anche ispezionando, un umano vedrà solo numeri senza senso.
 const databaseDomande = [
     {
         Q: "QUERY: Quale linguaggio di programmazione, famoso per la sua JVM, usi come linguaggio principale?",
@@ -199,10 +202,10 @@ let remainingAttempts = maxAttempts;
 let targetWordLength = 0;
 
 function initHangmanGame() {
+    if (!document.getElementById('game-hint')) return;
+
     currentChallenge = databaseDomande[Math.floor(Math.random() * databaseDomande.length)];
     
-    // Non salviamo più la parola intera in chiaro da nessuna parte in memoria!
-    // Usiamo una mappa temporanea solo per sapere quanto è lunga la parola misteriosa
     const lunghezze = { 2105674328: 4, 1042761895: 13, 193420: 3, 2090192537: 6, 2043694002: 6 };
     targetWordLength = lunghezze[currentChallenge.A];
     
@@ -210,7 +213,6 @@ function initHangmanGame() {
     remainingAttempts = maxAttempts;
     
     document.getElementById('game-hint').textContent = currentChallenge.Q;
-    
     document.getElementById('attempts-left').textContent = remainingAttempts;
     document.getElementById('attempts-left').style.color = "#ffb300";
     document.getElementById('used-letters').textContent = "nessuna";
@@ -222,14 +224,12 @@ function initHangmanGame() {
     generateKeyboard();
 }
 
-// Ricostruisce la stringa visiva (_ _ _ _) verificando gli hash delle combinazioni
 function renderWordDisplay() {
     const display = document.getElementById('word-display');
+    if (!display) return;
+
     let currentProgress = [];
     let parolaCompletaIndovinata = true;
-    
-    // Chiama un dizionario virtuale per la verifica della singola lettera in base alla domanda attuale
-    // Nota: La parola reale NON è esposta in chiaro.
     let letteraMappa = getMappaCorrente(currentChallenge.A);
     
     for (let i = 0; i < targetWordLength; i++) {
@@ -249,6 +249,7 @@ function renderWordDisplay() {
         document.getElementById('game-log').style.color = "#33ff33";
         disableAllKeyButtons();
         document.getElementById('reset-game-btn').style.display = "inline-block";
+        modificaPunteggio(100); // +100 punti se indovini l'intera parola!
     }
 }
 
@@ -269,6 +270,7 @@ function handleLetterGuess(letter, buttonElement) {
         remainingAttempts--;
         document.getElementById('attempts-left').textContent = remainingAttempts;
         document.getElementById('game-log').textContent = `[WARN]: Carattere errato. Nessun match nei blocchi.`;
+        modificaPunteggio(-10); // -10 punti per ogni errore commesso
         
         if (remainingAttempts <= 2) document.getElementById('attempts-left').style.color = "#ff3333";
         
@@ -283,7 +285,6 @@ function handleLetterGuess(letter, buttonElement) {
     }
 }
 
-// Helper interno per mappare i vettori di verifica senza salvare le stringhe nel database principale
 function getMappaCorrente(hash) {
     const m = {
         2105674328: ["J", "A", "V", "A"],
@@ -296,11 +297,13 @@ function getMappaCorrente(hash) {
 }
 
 function displayParolaFinale(parola) {
-    document.getElementById('word-display').textContent = parola.split("").join(" ");
+    const display = document.getElementById('word-display');
+    if (display) display.textContent = parola.split("").join(" ");
 }
 
 function generateKeyboard() {
     const container = document.getElementById('keyboard-container');
+    if (!container) return;
     container.innerHTML = "";
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").forEach(letter => {
         const btn = document.createElement('button');
@@ -317,9 +320,11 @@ function disableAllKeyButtons() {
     document.querySelectorAll('#keyboard-container .terminal-btn').forEach(btn => btn.disabled = true);
 }
 
-// Boot sicuro dei giochi all'avvio (attende che l'HTML sia interamente caricato)
+// ==========================================
+// AVVIO UNIFICATO E SICURO
+// ==========================================
 window.addEventListener('DOMContentLoaded', () => {
-    // Verifica che l'elemento del gioco esista nella pagina attuale prima di avviarlo
+    caricaProgetti();
     if (document.getElementById('game-hint')) {
         initHangmanGame();
     }
