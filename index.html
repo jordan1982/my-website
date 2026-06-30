@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +21,9 @@
             color: #0a0f0d;
         }
 
-        header, section, footer {
+        header,
+        section,
+        footer {
             max-width: 800px;
             margin: 0 auto 40px auto;
             border: 1px solid #33ff33;
@@ -28,14 +31,49 @@
             box-shadow: 0 0 10px rgba(51, 255, 51, 0.2);
         }
 
-        h1, h2, h3 {
+        /* Gestione globale dei titoli per evitare l'effetto visto nello screenshot */
+        h1,
+        h2,
+        h3 {
             color: #33ff33;
             border-bottom: 1px dashed #33ff33;
             padding-bottom: 5px;
+            white-space: nowrap;
+            /* Impedisce la rottura disordinata delle stringhe */
         }
 
-        h1::before { content: "> "; }
-        h2::before { content: "# "; }
+        /* Titolo Principale nell'Header */
+        header h1 {
+            font-size: 2.2rem;
+            line-height: 1.3;
+            margin-top: 10px;
+        }
+
+        /* Sottotitoli delle Sezioni */
+        section h2 {
+            font-size: 1.8rem;
+        }
+
+        section h3 {
+            font-size: 1.4rem;
+        }
+
+        h1::before {
+            content: "> ";
+        }
+
+        h2::before {
+            content: "# ";
+        }
+
+        /* Struttura dei Log nell'Header */
+        .header-logs {
+            display: flex;
+            flex-direction: column;
+            /* Mette ogni log su una riga separata */
+            gap: 5px;
+            margin-top: 15px;
+        }
 
         a {
             color: #00ffff;
@@ -53,20 +91,42 @@
             grid-template-columns: 1fr;
             gap: 15px;
         }
+
         @media (min-width: 600px) {
-            .project-grid { grid-template-columns: 1fr 1fr; }
+            .project-grid {
+                grid-template-columns: 1fr 1fr;
+            }
         }
 
-        .project-card, .info-card {
+        .project-card,
+        .info-card {
             border: 1px dashed #33ff33;
             padding: 15px;
             background: rgba(51, 255, 51, 0.02);
             margin-bottom: 15px;
         }
 
-        .status { font-weight: bold; color: #ffb300; }
-        .cursor { animation: blink 1s infinite; }
-        @keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+        .status {
+            font-weight: bold;
+            color: #ffb300;
+        }
+
+        .cursor {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            49% {
+                opacity: 1;
+            }
+
+            50%,
+            100% {
+                opacity: 0;
+            }
+        }
 
         /* Stile Terminale Interattivo per il Basket */
         .terminal-box {
@@ -76,6 +136,7 @@
             font-family: monospace;
             margin-top: 15px;
         }
+
         .terminal-input-line {
             display: flex;
             align-items: center;
@@ -83,6 +144,7 @@
             flex-wrap: wrap;
             gap: 10px;
         }
+
         .terminal-btn {
             background: #33ff33;
             color: #0a0f0d;
@@ -93,42 +155,118 @@
             cursor: pointer;
             transition: 0.2s;
         }
+
         .terminal-btn:hover:not(:disabled) {
             background: #fff;
         }
+
         .terminal-btn:disabled {
             background: #225522;
             color: #0a0f0d;
             cursor: not-allowed;
         }
+
+        /* --- SCREEN FIX COMPLETO PER MOBILE --- */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            header h1 {
+                font-size: 5.3vw;
+                /* Ridimensiona il titolo del sito */
+            }
+
+            section h2 {
+                font-size: 4.2vw;
+                /* Ridimensiona i path lunghi come ~/root_directory/chi_sono */
+            }
+
+            section h3 {
+                font-size: 4.5vw;
+            }
+        }
     </style>
 </head>
+
 <body>
 
     <header>
-        <h1>NERD_REPOSITORY_v1.2.0<span class="cursor">_</span></h1>
-        <p>Stato del sistema: <span class="status">ONLINE</span> // Logged_as: guest</p>
+        <h1>~/code_court_community<span class="cursor">_</span></h1>
+        <div class="header-logs">
+            <div>Log_Status: <span class="status">ACTIVE</span></div>
+            <div>Environment: Production</div>
+            <div>Guest_Access: GRANTED</div>
+        </div>
     </header>
 
     <section id="about">
-        <h2>~/chi_sono</h2>
-        <div class="info-card">
-            <p><strong>Identità:</strong> Sviluppatore, smanettatore e curioso cronico. Passo il mio tempo libero a ottimizzare flussi di lavoro, scrivere script e smontare cose (hardware e software).</p>
-        </div>
-
-        <h3>~/passioni</h3>
-        <div class="info-card">
-            <p><strong>Volontariato:</strong> Quando stacco dagli schermi, cerco di mettere la tecnologia al servizio della comunità. Credo che l'impatto sociale più grande si faccia risolvendo problemi reali, che sia configurare una rete o digitalizzare processi per chi ne ha bisogno.</p>
-        </div>
+        <h2>~/root_directory/chi_sono</h2>
 
         <div class="info-card">
-            <p><strong>Basket:</strong> Palla a spicchi, parquet e algoritmi. Trovo che ci sia una strana, bellissima geometria nel basket, molto simile alla logica del codice.</p>
-            
+            <p style="color: #88ffff; margin-top: 0; font-family: monospace;">guest@space:~$ cat intro.md</p>
+
+            <p>Ciao! Benvenuto nel mio angolo di web.</p>
+
+            <p>Sono un dev appassionato di <strong>tecnologia</strong> e <strong>sviluppo software</strong>, con una
+                vera e propria fissa per le <strong>automazioni</strong> (se un processo ripetitivo può essere
+                trasformato in uno script, state certi che lo farò).</p>
+
+            <p>Quando spengo l'IDE e scollego la mente dagli schermi, mi trovi quasi sempre in giro: a fare due passi
+                per il quartiere, a seguire e godermi una partita di <strong>basket</strong>, oppure a dare una mano con
+                il <strong>volontariato locale</strong>.</p>
+
+            <p>Credo che la logica del codice sia bellissima, ma che dia il meglio di sé quando esce dai server per
+                impattare positivamente sulla vita reale della comunità sotto casa.</p>
+        </div>
+
+        <h3>~/root_directory/le_mie_passioni</h3>
+
+        <div class="info-card">
+            <p><strong>[TECH_&_AUTOMATION]</strong><br>
+                La mia zona di comfort è davanti a un IDE. Amo l'integrazione di sistemi tramite API e la creazione di
+                script custom che fanno risparmiare tempo eliminando i task ripetitivi.</p>
+        </div>
+
+        <div class="info-card">
+            <p><strong>[VOLONTARIATO_DI_QUARTIERE]</strong><br>
+                Il mio modo di fare "commit" nel mondo reale. Traduco le esigenze delle associazioni locali in soluzioni
+                digitali concrete o infrastrutture stabili per supportare chi aiuta gli altri.</p>
+
             <div class="terminal-box">
-                <div class="terminal-screen" id="basket-container" style="position: relative; height: 150px; background: #000; overflow: hidden; border-bottom: 1px dashed rgba(51, 255, 51, 0.3); margin-bottom: 10px;">
-                    <div id="basket-target" style="position: absolute; right: 20px; bottom: 10px; font-size: 24px; z-index: 1;">🗑️</div>
-                    <div id="basketball" style="position: absolute; left: 10px; bottom: 10px; font-size: 24px; z-index: 2; transition: none;">🏀</div>
-                    <div id="basket-log" style="position: absolute; top: 10px; left: 10px; font-family: monospace; font-size: 12px; color: #33ff33;">guest@nerd_site:~$ ./shoot_ball.sh</div>
+                <div class="terminal-screen" id="cleaner-container"
+                    style="position: relative; height: 100px; background: #000; overflow: hidden; border-bottom: 1px dashed rgba(51, 255, 51, 0.3); margin-bottom: 10px; display: flex; align-items: flex-end; padding-bottom: 10px;">
+                    <div id="cleaner-env"
+                        style="width: 100%; font-family: monospace; font-size: 18px; position: relative; height: 30px;">
+                    </div>
+                    <div id="cleaner-log"
+                        style="position: absolute; top: 10px; left: 10px; font-family: monospace; font-size: 12px; color: #33ff33;">
+                        guest@space:~$ ./eco_cleaner.sh</div>
+                </div>
+                <div class="terminal-input-line">
+                    <span>Avvia pulizia di quartiere:</span>
+                    <button class="terminal-btn" id="cleaner-btn" onclick="runEcoCleaner()">AVVIA</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <p><strong>[PARQUET_LOGIC]</strong><br>
+                Non solo uno sport, ma un algoritmo in tempo reale fatto di spaziature e decisioni in frazioni di
+                secondo. Seguire il basket mi permette di staccare la mente pur mantenendo attiva la stessa logica che
+                uso nel codice.</p>
+
+            <div class="terminal-box">
+                <div class="terminal-screen" id="basket-container"
+                    style="position: relative; height: 150px; background: #000; overflow: hidden; border-bottom: 1px dashed rgba(51, 255, 51, 0.3); margin-bottom: 10px;">
+                    <div id="basket-target"
+                        style="position: absolute; right: 20px; bottom: 10px; font-size: 24px; z-index: 1;">🗑️</div>
+                    <div id="basketball"
+                        style="position: absolute; left: 10px; bottom: 10px; font-size: 24px; z-index: 2; transition: none;">
+                        🏀</div>
+                    <div id="basket-log"
+                        style="position: absolute; top: 10px; left: 10px; font-family: monospace; font-size: 12px; color: #33ff33;">
+                        guest@nerd_site:~$ ./shoot_ball.sh</div>
                 </div>
                 <div class="terminal-input-line">
                     <span>Esegui comando per lanciare:</span>
@@ -191,35 +329,97 @@
             });
         }
 
+       // 3. SIMULATORE OMINO VOLONTARIO IN ASCII ART (Y CAPOVOLTA)
+function runEcoCleaner() {
+    const env = document.getElementById('cleaner-env');
+    const log = document.getElementById('cleaner-log');
+    const btn = document.getElementById('cleaner-btn');
+    
+    btn.disabled = true;
+    env.innerHTML = ""; 
+    
+    // Configurazione Rifiuti
+
+    const rifiuti = ["🍂", "🍾", "📰", "🥫", "🚬","🪫"];
+// Foglie secche, giornale vecchio, lattina, mozzicone
+    
+    // Generiamo il percorso di 22 slot
+    let mappa = new Array(22).fill(" ");
+    mappa[4] = rifiuti[0];
+    mappa[9] = rifiuti[1];
+    mappa[14] = rifiuti[2];
+    mappa[19] = rifiuti[3];
+    
+    let posOmino = 0;
+    let saccoRifiuti = 0;
+    
+    // Regoliamo l'altezza per le due righe dell'omino
+    env.parentElement.style.height = "120px";
+
+    const gameLoop = setInterval(() => {
+        // Controllo collisione
+        if (mappa[posOmino] !== " ") {
+            saccoRifiuti++;
+            log.textContent = `[EVENT]: Rifiuto raccolto! Sacco: ${saccoRifiuti}/4`;
+        }
+        
+        // Creiamo le due righe del frame corrente
+        let rigaTesta = new Array(22).fill(" ");
+        let rigaCorpo = [...mappa]; // I rifiuti stanno a terra, sulla riga del corpo
+        
+        // Disegniamo l'omino alto (o = testa, ⅄ = corpo con gambe a terra)
+        rigaTesta[posOmino] = "o";
+        rigaCorpo[posOmino] = "⅄"; 
+        
+        // Renderizziamo il frame nel terminale
+        env.innerHTML = `
+<div style="white-space: pre; font-family: monospace; line-height: 1.1; letter-spacing: 2px; color: #33ff33;">${rigaTesta.join("")}</div>
+<div style="white-space: pre; font-family: monospace; line-height: 1.1; letter-spacing: 2px; color: #33ff33;">${rigaCorpo.join("")}</div>
+<div style="color: #225522; margin-top: 2px;">____________________________________________________</div>
+        `.trim();
+        
+        // Pulisce il terreno dove è passato l'omino
+        mappa[posOmino] = " ";
+        
+        posOmino++;
+        
+        if (posOmino >= mappa.length) {
+            clearInterval(gameLoop);
+            log.textContent = `[STATUS]: Pulizia di quartiere completata. Strade pulite! [Rifiuti rimossi: ${saccoRifiuti}]`;
+            btn.disabled = false;
+        }
+    }, 180);
+}
+
         // 2. FUNZIONE ANIMAZIONE BASKET REALE CON PARABOLA CSS/JS
         function runPerfectParabola() {
             const ball = document.getElementById('basketball');
             const log = document.getElementById('basket-log');
             const container = document.getElementById('basket-container');
             const btn = document.querySelector('.terminal-btn');
-            
+
             btn.disabled = true;
-            
+
             // Calcolo dinamico dello spazio disponibile nel contenitore (compatibile con Mobile)
-            const width = container.clientWidth - 55; 
+            const width = container.clientWidth - 55;
             const maxHeight = 95; // Altezza del picco della parabola in pixel
-            
+
             let progress = 0; // Percentuale avanzamento del lancio (da 0 a 100)
-            
+
             const animation = setInterval(() => {
                 progress += 2; // Step di avanzamento ad ogni frame
-                
+
                 // Coordinata X lineare
                 let x = (progress / 100) * width;
-                
+
                 // Coordinata Y matematica: equazione quadratica pura della parabola
                 let p = progress / 100;
                 let y = 4 * maxHeight * p * (1 - p);
-                
+
                 // Spostamento fisico degli elementi sulla griglia pixel
                 ball.style.left = (10 + x) + 'px';
                 ball.style.bottom = (10 + y) + 'px';
-                
+
                 // Switch dei log del terminale in tempo reale basato sui progressi
                 if (progress < 50) {
                     log.textContent = `[LAUNCH]: Spinta idraulica // Altitudine: ${Math.round(y)}px`;
@@ -237,4 +437,5 @@
         window.onload = caricaProgetti;
     </script>
 </body>
+
 </html>
