@@ -25,22 +25,16 @@ function modificaPunteggio(valore) {
 // ==========================================
 const progettiJSON = [
     {
-        "titolo": "Log_Monitor_API",
-        "descrizione": "Script per automatizzare le modifiche e il monitoraggio dei log di sistema attraverso chiamate API dirette.",
-        "link_github": "#",
-        "tag": "Python"
+        "titolo": "FantaReminder_Bot",
+        "descrizione": "Un assistente automatizzato su Telegram dedicato ai fantallenatori: analizza i calendari di Serie A e invia notifiche push mirate prima dell'inizio di ogni turno di campionato per non dimenticare mai la formazione.",
+        "link_github": "https://t.me/fantareminder",
+        "tag": "Telegram Bot"
     },
     {
-        "titolo": "Budget_Alert_Bot",
-        "descrizione": "Invia notifiche istantanee tramite webhook quando i costi infrastrutturali superano la soglia impostata.",
-        "link_github": "#",
-        "tag": "Serverless"
-    },
-    {
-        "titolo": "Home_Server_Automation",
-        "descrizione": "Insieme di playbook Ansible per configurare un server locale con Docker, Pi-hole e Nextcloud.",
-        "link_github": "#",
-        "tag": "DevOps"
+        "titolo": "Temperaturino_Sensor",
+        "descrizione": "Firmware IoT sviluppato per schedine Wemos D1 Mini e sensore BME680. Gestisce il monitoraggio in tempo reale di temperatura e qualità dell'aria, l'autenticazione tramite un Access Point di configurazione dedicato (WiFiManager) e l'invio dei dati via MQTT. Include la predisposizione per case stampabile in 3D.",
+        "link_github": "https://github.com/jordan1982/temperaturino",
+        "tag": "C++ / Arduino"
     }
 ];
 
@@ -52,10 +46,14 @@ function caricaProgetti() {
     progettiJSON.forEach(progetto => {
         const card = document.createElement('div');
         card.className = 'project-card';
+        
+        // CONTROLLO DINAMICO: Se il tag è "Telegram Bot" cambia il testo del link
+        const testoLink = progetto.tag === "Telegram Bot" ? "[Visita Canale]" : "[Vedi Codice]";
+
         card.innerHTML = `
             <h3>${progetto.titolo} [${progetto.tag}]</h3>
             <p>${progetto.descrizione}</p>
-            <p><a href="${progetto.link_github}" target="_blank">[Vedi Codice]</a></p>
+            <p><a href="${progetto.link_github}" target="_blank">${testoLink}</a></p>
         `;
         container.appendChild(card);
     });
