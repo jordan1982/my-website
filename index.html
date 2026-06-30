@@ -114,16 +114,28 @@
         <div class="info-card">
             <div class="score-display">SYSTEM_SCORE: <span id="user-score">0</span> PTS</div>
 
-            <p><strong>[SSH_AUTHENTICATION_BYPASS]</strong><br>
-                Il sistema richiede l'inserimento della chiave di sicurezza per identificare l'amministratore. Rispondi
-                alla query del terminale.</p>
-
-            <p id="game-hint"
-                style="color: #00ffff; font-family: monospace; border-left: 3px solid #00ffff; padding-left: 10px; margin: 15px 0; font-size: 14px;">
-                Caricamento query di sistema...
-            </p>
+            <div
+                style="border: 1px solid rgba(51, 255, 51, 0.4); padding: 15px; margin-bottom: 20px; background-color: rgba(5, 8, 6, 0.6); font-family: monospace; font-size: 13px; line-height: 1.5;">
+                <span style="color: #ff3333; font-weight: bold;">💀 [MISSION_BRIEF]: PORTFOLIO OVERRIDE
+                    CHALLENGE</span><br><br>
+                Questo sistema è protetto da un'infrastruttura euristica simulata. Interagendo con il terminale ed
+                eseguendo l'iniezione dei caratteri corretti, potrai violare i nodi di sicurezza rispondendo alle query
+                tecniche (DevOps, Cloud, Database e programmazione).<br><br>
+                • <strong>La Sfida:</strong> Decifra i payload crittografici per accumulare vettori di attacco.<br>
+                • <strong>L'Obiettivo:</strong> Raggiungi <strong>1000 punti</strong> di System Score.<br>
+                • <strong>La Conseguenza:</strong> Al superamento della soglia critica, i firewall collasseranno
+                definitivamente, attivando un <strong>blackout totale del sito</strong> e garantendoti i privilegi di
+                <code>ROOT ACCESS</code>.<br><br>
+                <span style="color: #33ff33;">[STATUS]: Terminale pronto. Inserisci i bit per avviare il
+                    brute-force...</span>
+            </div>
 
             <div class="terminal-box" style="background-color: #000; border: 1px solid #33ff33; padding: 15px;">
+                <p id="game-hint"
+                    style="color: #00ffff; font-family: monospace; border-left: 3px solid #00ffff; padding-left: 10px; margin: 0 0 15px 0; font-size: 14px;">
+                    Caricamento query di sistema...
+                </p>
+
                 <div id="game-log"
                     style="font-size: 12px; color: #33ff33; margin-bottom: 15px; font-family: monospace;">
                     guest@space:~$ ./ssh_auth_bypass.sh --start
