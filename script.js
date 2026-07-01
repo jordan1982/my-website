@@ -300,11 +300,11 @@ function handleLetterGuess(letter, buttonElement) {
     document.getElementById('used-letters').textContent = guessedLetters.join(", ");
     
     const sequenzaCaratteri = dizionarioCifrato[currentChallenge.id];
-    let azzeccata = false;
+    let azzeccata = false; // Dichiarata correttamente
 
     for (let i = 0; i < sequenzaCaratteri.length; i++) {
         if (String.fromCharCode(sequenzaCaratteri[i]) === letter) {
-            azzaccata = true;
+            azzeccata = true; // <--- CORRETTO: Ora la variabile coincide perfettamente
             break;
         }
     }
@@ -330,7 +330,6 @@ function handleLetterGuess(letter, buttonElement) {
         }
     }
 }
-
 // ==========================================
 // 5. SCHERMATA FINALE VITTORIA: BLACKOUT TOTALE DEL SITO
 // ==========================================
