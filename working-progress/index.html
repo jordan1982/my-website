@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Lucky Sea House — Anzio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1f4c;
+    --blue: #1a3a7c;
+    --sea: #2a6fba;
+    --sky: #5b9ed6;
+    --foam: #d8eaf7;
+    --sand: #f5eedf;
+    --cream: #fdf9f3;
+    --coral: #e05c4b;
+    --gold: #c9a84c;
+    --text: #1c1c2e;
+    --muted: #6b7a99;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2.5rem;
+    background: rgba(13,31,76,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    transition: padding 0.3s;
+  }
+  .nav-logo {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.6rem;
+    color: var(--white);
+    letter-spacing: 0.02em;
+  }
+  .nav-logo span { color: var(--sky); }
+  .nav-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+  .nav-links a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--sky); }
+  .nav-cta {
+    background: var(--sea);
+    color: white !important;
+    padding: 0.5rem 1.2rem;
+    border-radius: 2rem;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--sky) !important; color: white !important; }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    background: linear-gradient(160deg, var(--navy) 0%, var(--blue) 50%, #1a5594 100%);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    padding: 6rem 2rem 4rem;
+    text-align: center;
+  }
+
+  /* animated waves */
+  .waves-bg {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 220px; overflow: hidden;
+  }
+  .wave {
+    position: absolute; width: 200%; height: 100%;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 220'%3E%3Cpath fill='%23f5eedf' fill-opacity='1' d='M0,128L48,112C96,96,192,64,288,64C384,64,480,96,576,117.3C672,139,768,149,864,138.7C960,128,1056,96,1152,85.3C1248,75,1344,85,1392,90.7L1440,96L1440,220L1392,220C1344,220,1248,220,1152,220C1056,220,960,220,864,220C768,220,672,220,576,220C480,220,384,220,288,220C192,220,96,220,48,220L0,220Z'%3E%3C/path%3E%3C/svg%3E") no-repeat bottom;
+    background-size: cover;
+  }
+  .wave-1 { animation: waveMove 8s linear infinite; opacity: 0.4; }
+  .wave-2 { animation: waveMove 12s linear infinite reverse; opacity: 0.6; transform: translateX(-25%); }
+  .wave-3 { opacity: 1; }
+  @keyframes waveMove {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* floating particles */
+  .particles {
+    position: absolute; inset: 0; pointer-events: none;
+  }
+  .p { position: absolute; border-radius: 50%; opacity: 0.15; animation: float 6s ease-in-out infinite; }
+  .p:nth-child(1){width:120px;height:120px;top:15%;left:8%;background:var(--sky);animation-delay:0s;}
+  .p:nth-child(2){width:60px;height:60px;top:60%;left:5%;background:var(--foam);animation-delay:1.5s;}
+  .p:nth-child(3){width:80px;height:80px;top:20%;right:10%;background:var(--sky);animation-delay:3s;}
+  .p:nth-child(4){width:40px;height:40px;top:75%;right:8%;background:var(--foam);animation-delay:4.5s;}
+  @keyframes float {
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-24px); }
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 2rem;
+    padding: 0.4rem 1rem;
+    font-size: 0.78rem;
+    color: var(--foam);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    backdrop-filter: blur(8px);
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-badge::before { content: '🐚'; font-size: 1rem; }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 0.3rem;
+    animation: fadeUp 0.8s ease 0.15s both;
+  }
+  .hero-title .script {
+    font-family: 'Dancing Script', cursive;
+    color: var(--sky);
+    font-size: clamp(3.5rem, 9vw, 7rem);
+    display: block;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: rgba(255,255,255,0.7);
+    max-width: 520px;
+    margin: 1.5rem auto 2.5rem;
+    line-height: 1.7;
+    font-weight: 300;
+    animation: fadeUp 0.8s ease 0.3s both;
+  }
+
+  .hero-chips {
+    display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.8s ease 0.45s both;
+  }
+  .chip {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 2rem;
+    padding: 0.35rem 1rem;
+    font-size: 0.82rem;
+    color: var(--foam);
+    backdrop-filter: blur(4px);
+  }
+
+  .hero-btns {
+    display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    animation: fadeUp 0.8s ease 0.6s both;
+    position: relative; z-index: 2;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--white); color: var(--navy);
+    padding: 0.9rem 2rem; border-radius: 3rem;
+    font-weight: 600; font-size: 0.95rem;
+    text-decoration: none;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(0,0,0,0.3); }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: transparent; color: var(--white);
+    padding: 0.9rem 2rem; border-radius: 3rem;
+    font-weight: 500; font-size: 0.95rem;
+    text-decoration: none;
+    border: 1.5px solid rgba(255,255,255,0.4);
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.1); border-color: white; }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(28px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  /* ─── QUICK INFO BAR ─── */
+  .info-bar {
+    background: var(--sand);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    padding: 1.2rem 2rem;
+  }
+  .info-bar-inner {
+    max-width: 900px; margin: 0 auto;
+    display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center;
+  }
+  .info-item {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.88rem; color: var(--navy);
+  }
+  .info-item strong { font-weight: 600; }
+  .info-icon { font-size: 1.1rem; }
+
+  /* ─── SECTIONS COMMON ─── */
+  section { padding: 6rem 2rem; }
+  .container { max-width: 1080px; margin: 0 auto; }
+
+  .section-label {
+    display: inline-block;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--sea);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 1.2rem;
+  }
+  .section-desc {
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.75;
+    max-width: 580px;
+  }
+
+  /* ─── LA CASA ─── */
+  #casa { background: var(--cream); }
+  .casa-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    margin-top: 3.5rem;
+  }
+  .casa-features {
+    display: flex; flex-direction: column; gap: 1.5rem;
+  }
+  .feature-card {
+    background: var(--white);
+    border-radius: 1.2rem;
+    padding: 1.5rem 1.8rem;
+    border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .feature-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,0.09); }
+  .feature-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--navy);
+    margin-bottom: 0.4rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .feature-card p { font-size: 0.92rem; color: var(--muted); line-height: 1.6; }
+
+  .casa-image-stack { position: relative; height: 480px; }
+  .img-main {
+    width: 80%; height: 360px;
+    object-fit: cover;
+    border-radius: 1.5rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    position: absolute; top: 0; right: 0;
+  }
+  .img-accent {
+    width: 55%; height: 220px;
+    object-fit: cover;
+    border-radius: 1.2rem;
+    border: 5px solid var(--cream);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    position: absolute; bottom: 0; left: 0;
+  }
+
+  /* ─── DOTAZIONI ─── */
+  #dotazioni { background: var(--sand); }
+  .amenities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+  .amenity {
+    background: var(--white);
+    border-radius: 1rem;
+    padding: 1.2rem 1rem;
+    text-align: center;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.2s, background 0.2s;
+    cursor: default;
+  }
+  .amenity:hover { transform: translateY(-4px); background: var(--foam); }
+  .amenity-icon { font-size: 1.8rem; margin-bottom: 0.5rem; }
+  .amenity-label { font-size: 0.82rem; color: var(--navy); font-weight: 500; }
+
+  /* ─── GALLERY ─── */
+  #foto { background: var(--navy); color: white; }
+  #foto .section-label { color: var(--sky); }
+  #foto .section-title { color: var(--white); }
+  #foto .section-desc { color: rgba(255,255,255,0.6); }
+
+  .gallery-mosaic {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 220px 220px;
+    gap: 0.75rem;
+    margin-top: 3rem;
+    border-radius: 1.5rem;
+    overflow: hidden;
+  }
+  .g-item {
+    background: var(--blue);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+  }
+  .g-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s;
+  }
+  .g-item:hover img { transform: scale(1.06); }
+  .g-item::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.4));
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .g-item:hover::after { opacity: 1; }
+  .g-tall { grid-row: span 2; }
+  .g-wide { grid-column: span 2; }
+
+  /* placeholder colors for gallery without real images */
+  .g-item:nth-child(1){ background: linear-gradient(135deg, #1a3a7c, #2a6fba); }
+  .g-item:nth-child(2){ background: linear-gradient(135deg, #2a6fba, #5b9ed6); }
+  .g-item:nth-child(3){ background: linear-gradient(135deg, #1a5594, #1a3a7c); }
+  .g-item:nth-child(4){ background: linear-gradient(135deg, #5b9ed6, #d8eaf7); }
+  .g-item:nth-child(5){ background: linear-gradient(135deg, #0d1f4c, #1a3a7c); }
+  .g-item:nth-child(6){ background: linear-gradient(135deg, #1a3a7c, #2a6fba); }
+
+  .gallery-notice {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.45);
+  }
+
+  /* real image gallery */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-top: 3rem;
+    border-radius: 1.5rem;
+    overflow: hidden;
+  }
+  .gallery-grid .g-item {
+    height: 200px;
+  }
+  .gallery-grid .g-item.tall {
+    height: 415px;
+    grid-row: span 2;
+  }
+
+  /* ─── REGOLE ─── */
+  #regole { background: var(--cream); }
+  .rules-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+    margin-top: 3rem;
+  }
+  .rule-item {
+    display: flex; align-items: flex-start; gap: 0.8rem;
+    background: var(--white);
+    border-radius: 1rem;
+    padding: 1.2rem 1.5rem;
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  .rule-icon { font-size: 1.4rem; flex-shrink: 0; }
+  .rule-text h4 { font-size: 0.92rem; font-weight: 600; color: var(--navy); margin-bottom: 0.2rem; }
+  .rule-text p { font-size: 0.82rem; color: var(--muted); }
+
+  /* ─── ZONA ─── */
+  #zona { background: var(--sand); }
+  .zona-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+    align-items: center; margin-top: 3.5rem;
+  }
+  .zona-tips { display: flex; flex-direction: column; gap: 1.2rem; }
+  .tip-card {
+    background: var(--white);
+    border-radius: 1.2rem;
+    padding: 1.4rem 1.8rem;
+    border-left: 4px solid var(--sea);
+    box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+  }
+  .tip-card h3 { font-size: 1rem; color: var(--navy); font-weight: 600; margin-bottom: 0.4rem; }
+  .tip-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+  .map-embed {
+    border-radius: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+    height: 340px;
+  }
+  .map-embed iframe {
+    width: 100%; height: 100%; border: none;
+  }
+
+  /* ─── PRENOTA ─── */
+  #prenota {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  #prenota::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  #prenota .section-label { color: var(--sky); }
+  #prenota .section-title { color: white; }
+  .prenota-desc {
+    font-size: 1.1rem; color: rgba(255,255,255,0.7);
+    max-width: 480px; margin: 0 auto 3rem;
+    line-height: 1.7;
+  }
+  .contact-card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 2rem;
+    padding: 3rem 2.5rem;
+    max-width: 480px;
+    margin: 0 auto;
+    backdrop-filter: blur(12px);
+  }
+  .contact-wa {
+    display: flex; align-items: center; gap: 0.6rem;
+    background: #25D366; color: white;
+    padding: 1.1rem 2.2rem;
+    border-radius: 3rem;
+    font-size: 1.05rem; font-weight: 600;
+    text-decoration: none;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 24px rgba(37,211,102,0.35);
+  }
+  .contact-wa:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(37,211,102,0.45); }
+  .contact-divider {
+    display: flex; align-items: center; gap: 1rem;
+    color: rgba(255,255,255,0.3);
+    font-size: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .contact-divider::before,
+  .contact-divider::after {
+    content: ''; flex: 1;
+    height: 1px; background: rgba(255,255,255,0.15);
+  }
+  .contact-email {
+    display: block;
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+  }
+  .contact-email:hover { color: white; }
+  .cancel-note {
+    margin-top: 2rem;
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.45);
+  }
+  .cancel-note strong { color: rgba(255,255,255,0.8); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: #080f26;
+    color: rgba(255,255,255,0.45);
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+  footer strong { color: rgba(255,255,255,0.7); }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.2rem; }
+    .nav-links { display: none; }
+    .casa-grid, .zona-grid, .rules-grid { grid-template-columns: 1fr; }
+    .casa-image-stack { height: 300px; }
+    .img-main { width: 90%; height: 260px; }
+    .img-accent { width: 60%; height: 160px; }
+    .gallery-mosaic { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .g-tall { grid-row: span 1; }
+    .g-wide { grid-column: span 2; }
+    section { padding: 4rem 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">The <span>Lucky</span> Sea House</div>
+  <ul class="nav-links">
+    <li><a href="#casa">La Casa</a></li>
+    <li><a href="#dotazioni">Dotazioni</a></li>
+    <li><a href="#foto">Foto</a></li>
+    <li><a href="#zona">Zona</a></li>
+    <li><a href="#prenota" class="nav-cta">Prenota</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="particles">
+    <div class="p"></div><div class="p"></div>
+    <div class="p"></div><div class="p"></div>
+  </div>
+
+  <div class="hero-badge">Anzio • Zona Marechiaro • Prenotazione diretta</div>
+
+  <h1 class="hero-title">
+    The
+    <span class="script">Lucky Sea House</span>
+  </h1>
+
+  <p class="hero-subtitle">
+    Relax al mare, spazio per tutti — e Roma a portata di treno.<br>
+    Una casa comoda e ristrutturata per famiglie e gruppi di amici.
+  </p>
+
+  <div class="hero-chips">
+    <span class="chip">👥 6 adulti + 1 bimbo</span>
+    <span class="chip">🏖️ Terrazzo & barbecue</span>
+    <span class="chip">🚿 Doccia esterna calda</span>
+    <span class="chip">🚂 Roma in treno</span>
+  </div>
+
+  <div class="hero-btns">
+    <a href="https://wa.me/393429249232" class="btn-primary">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Prenota su WhatsApp
+    </a>
+    <a href="#foto" class="btn-secondary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Guarda le foto
+    </a>
+  </div>
+
+  <div class="waves-bg">
+    <div class="wave wave-1"></div>
+    <div class="wave wave-2"></div>
+    <div class="wave wave-3"></div>
+  </div>
+</section>
+
+<!-- QUICK INFO BAR -->
+<div class="info-bar">
+  <div class="info-bar-inner">
+    <div class="info-item"><span class="info-icon">🕒</span><span><strong>Check-in</strong> dalle 15:00</span></div>
+    <div class="info-item"><span class="info-icon">🕙</span><span><strong>Check-out</strong> entro 11:00</span></div>
+    <div class="info-item"><span class="info-icon">↩️</span><span><strong>Cancellazione</strong> rimborso totale fino a 5 giorni prima</span></div>
+    <div class="info-item"><span class="info-icon">🐾</span><span><strong>Animali</strong> su richiesta</span></div>
+  </div>
+</div>
+
+<!-- LA CASA -->
+<section id="casa">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">La casa</span>
+      <h2 class="section-title">Tutto il mare.<br>Zero pensieri.</h2>
+      <p class="section-desc">The Lucky Sea House è pensata per chi vuole il mare senza rinunciare alla comodità: spazi ben organizzati, angolo studio e una parte esterna perfetta per grigliate e rientri salati dalla spiaggia.</p>
+    </div>
+
+    <div class="casa-grid">
+      <div class="casa-features">
+        <div class="feature-card reveal reveal-delay-1">
+          <h3>⚽ Family & friends</h3>
+          <p>Biliardino bambini e giochi per il mare: qui i piccoli non si annoiano (e i grandi neanche).</p>
+        </div>
+        <div class="feature-card reveal reveal-delay-2">
+          <h3>🔥 Outdoor comodo</h3>
+          <p>Barbecue + doccia esterna calda: la combo che salva le vacanze dopo una giornata di mare.</p>
+        </div>
+        <div class="feature-card reveal reveal-delay-3">
+          <h3>✅ Zero pensieri</h3>
+          <p>Lavatrice, lavastoviglie, ferro da stiro, stendini. Moka e Nespresso con capsule incluse. Sì, davvero.</p>
+        </div>
+      </div>
+
+      <div class="casa-image-stack reveal reveal-delay-1">
+        <!-- Visual placeholder with gradient -->
+        <div class="img-main" style="background: linear-gradient(135deg, #1a3a7c 0%, #2a6fba 50%, #5b9ed6 100%); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:0.5rem;">
+          <span style="font-size:3rem;">🌊</span>
+          <span style="color:rgba(255,255,255,0.7); font-size:0.85rem; font-family:'DM Sans',sans-serif;">Terrazzo con vista</span>
+        </div>
+        <div class="img-accent" style="background: linear-gradient(135deg, #c9a84c 0%, #e8c87a 100%); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:0.4rem;">
+          <span style="font-size:2rem;">🍖</span>
+          <span style="color:rgba(0,0,0,0.6); font-size:0.8rem; font-family:'DM Sans',sans-serif;">Barbecue</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOTAZIONI -->
+<section id="dotazioni">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">Dotazioni</span>
+      <h2 class="section-title">Tutto quello<br>che ti serve.</h2>
+      <p class="section-desc">E qualche extra in più. Icone = lettura veloce.</p>
+    </div>
+
+    <div class="amenities-grid">
+      <div class="amenity reveal"><div class="amenity-icon">📺</div><div class="amenity-label">2 TV</div></div>
+      <div class="amenity reveal reveal-delay-1"><div class="amenity-icon">📶</div><div class="amenity-label">Wi-Fi</div></div>
+      <div class="amenity reveal reveal-delay-2"><div class="amenity-icon">☕</div><div class="amenity-label">Moka + Nespresso (capsule incluse)</div></div>
+      <div class="amenity reveal reveal-delay-3"><div class="amenity-icon">💨</div><div class="amenity-label">Phon</div></div>
+      <div class="amenity reveal"><div class="amenity-icon">⚽</div><div class="amenity-label">Biliardino bambini</div></div>
+      <div class="amenity reveal reveal-delay-1"><div class="amenity-icon">🏖️</div><div class="amenity-label">Giochi per il mare</div></div>
+      <div class="amenity reveal reveal-delay-2"><div class="amenity-icon">🔥</div><div class="amenity-label">Barbecue</div></div>
+      <div class="amenity reveal reveal-delay-3"><div class="amenity-icon">🚿</div><div class="amenity-label">Doccia esterna calda</div></div>
+      <div class="amenity reveal"><div class="amenity-icon">📚</div><div class="amenity-label">Studiolo</div></div>
+      <div class="amenity reveal reveal-delay-1"><div class="amenity-icon">🍽️</div><div class="amenity-label">Lavastoviglie</div></div>
+      <div class="amenity reveal reveal-delay-2"><div class="amenity-icon">🫧</div><div class="amenity-label">Lavatrice</div></div>
+      <div class="amenity reveal reveal-delay-3"><div class="amenity-icon">👔</div><div class="amenity-label">Ferro da stiro & stendini</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOTO -->
+<section id="foto">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">Foto</span>
+      <h2 class="section-title">Vieni a trovarci.</h2>
+      <p class="section-desc">Una selezione di ambienti — terrazzo, cucina, camere, bagni e outdoor.</p>
+    </div>
+
+    <!-- Visual gallery with styled placeholders -->
+    <div class="gallery-grid reveal" style="margin-top:2.5rem;">
+      <div class="g-item tall" style="background:linear-gradient(160deg,#0d1f4c,#1a5594); display:flex;align-items:center;justify-content:center;font-size:3rem;">🛋️</div>
+      <div class="g-item" style="background:linear-gradient(135deg,#2a6fba,#5b9ed6); display:flex;align-items:center;justify-content:center;font-size:2.5rem;">🍳</div>
+      <div class="g-item" style="background:linear-gradient(135deg,#1a3a7c,#2a6fba); display:flex;align-items:center;justify-content:center;font-size:2.5rem;">🛏️</div>
+      <div class="g-item" style="background:linear-gradient(135deg,#1a5594,#0d1f4c); display:flex;align-items:center;justify-content:center;font-size:2.5rem;">🚿</div>
+      <div class="g-item" style="background:linear-gradient(135deg,#c9a84c,#e8c87a); display:flex;align-items:center;justify-content:center;font-size:2.5rem;">🌅</div>
+      <div class="g-item" style="background:linear-gradient(135deg,#5b9ed6,#d8eaf7); display:flex;align-items:center;justify-content:center;font-size:2.5rem;">🌊</div>
+    </div>
+    <p class="gallery-notice">📸 Le foto reali saranno caricate prima del lancio</p>
+  </div>
+</section>
+
+<!-- REGOLE -->
+<section id="regole">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">Info & regole</span>
+      <h2 class="section-title">Per un soggiorno<br>sereno per tutti.</h2>
+    </div>
+    <div class="rules-grid">
+      <div class="rule-item reveal">
+        <span class="rule-icon">🕒</span>
+        <div class="rule-text">
+          <h4>Orari</h4>
+          <p>Check-in dopo le 15:00 · Check-out entro le 11:00</p>
+        </div>
+      </div>
+      <div class="rule-item reveal reveal-delay-1">
+        <span class="rule-icon">🔇</span>
+        <div class="rule-text">
+          <h4>Silenzio</h4>
+          <p>Rispettare il silenzio dalle 23:30 alle 09:00</p>
+        </div>
+      </div>
+      <div class="rule-item reveal reveal-delay-2">
+        <span class="rule-icon">🚭</span>
+        <div class="rule-text">
+          <h4>No party · No fumo</h4>
+          <p>Vietato fumare in casa. Feste non autorizzate.</p>
+        </div>
+      </div>
+      <div class="rule-item reveal reveal-delay-3">
+        <span class="rule-icon">🐾</span>
+        <div class="rule-text">
+          <h4>Animali</h4>
+          <p>Benvenuti su richiesta — contattaci prima della prenotazione.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ZONA -->
+<section id="zona">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">La zona</span>
+      <h2 class="section-title">Anzio, zona<br>Marechiaro.</h2>
+      <p class="section-desc">Mare, pinete, passeggiate serali e Roma raggiungibile in treno. La posizione ideale per staccare davvero.</p>
+    </div>
+
+    <div class="zona-grid">
+      <div class="zona-tips">
+        <div class="tip-card reveal">
+          <h3>🏖️ Mare & spiagge</h3>
+          <p>Giornate in spiaggia, rientro comodo con doccia esterna calda e cena barbecue sul terrazzo.</p>
+        </div>
+        <div class="tip-card reveal reveal-delay-1">
+          <h3>🚂 Gita a Roma</h3>
+          <p>Vuoi spezzare la settimana? Treno per Roma e poi di nuovo pace e mare la sera.</p>
+        </div>
+        <div class="tip-card reveal reveal-delay-2">
+          <h3>🌅 Passeggiata serale</h3>
+          <p>Lungomare, gelateria, tramonto sul porto: il rituale che nessuno vuole saltare.</p>
+        </div>
+      </div>
+
+      <div class="map-embed reveal reveal-delay-1">
+        <iframe
+          src="https://www.openstreetmap.org/export/embed.html?bbox=12.60,41.44,12.66,41.47&layer=mapnik&marker=41.455,12.628"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
+      </div>
+    </div>
+    <p style="margin-top:1rem; font-size:0.82rem; color:var(--muted);">📍 Punto indicativo in zona Via Stella — l'indirizzo preciso viene condiviso dopo la prenotazione.</p>
+  </div>
+</section>
+
+<!-- PRENOTA -->
+<section id="prenota">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">Prenota</span>
+      <h2 class="section-title">Pronto per il mare?</h2>
+    </div>
+    <p class="prenota-desc reveal reveal-delay-1">Per disponibilità, prezzi e domande scrivici direttamente su WhatsApp. Risposta rapida, niente intermediari.</p>
+
+    <div class="contact-card reveal reveal-delay-2">
+      <a href="https://wa.me/393429249232?text=Ciao!%20Vorrei%20informazioni%20su%20The%20Lucky%20Sea%20House" class="contact-wa" target="_blank" rel="noopener">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Scrivi su WhatsApp
+      </a>
+      <div class="contact-divider">oppure</div>
+      <a href="mailto:Silv.lucky@gmail.com" class="contact-email">✉️ Silv.lucky@gmail.com</a>
+      <p class="cancel-note">🔄 <strong>Cancellazione gratuita</strong> fino a 5 giorni prima del check-in</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>The Lucky Sea House</strong> · Anzio, zona Marechiaro</p>
+  <p style="margin-top:0.5rem;">CIN IT058007C2JBV8HH4A · CIR 058007 · +39 342 924 9232</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Nav shrink on scroll
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      nav.style.padding = '0.6rem 2.5rem';
+    } else {
+      nav.style.padding = '1rem 2.5rem';
+    }
+  });
+</script>
+</body>
+</html>
