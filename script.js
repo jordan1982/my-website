@@ -87,7 +87,7 @@ function runEcoCleaner() {
         if (mappa[posOmino] !== " ") {
             saccoRifiuti++;
             log.textContent = `[EVENT]: Rifiuto raccolto! Sacco: ${saccoRifiuti}/4`;
-            modificaPunteggio(10); 
+            // CORREZIONE: Rimossa la modifica al punteggio globale
         }
 
         let rigaTesta = new Array(22).fill(" ");
@@ -158,7 +158,7 @@ function runPerfectParabola() {
         } else if (progress >= 100) {
             log.textContent = `[STATUS]: SWISH! // Canestro perfetto registrato sul target 🗑️`;
             clearInterval(animation);
-            modificaPunteggio(50); 
+            // CORREZIONE: Rimossa la modifica al punteggio globale
             if (btn) btn.disabled = false;
         }
     }, 16); 
@@ -197,31 +197,31 @@ const databaseDomande = [
 ];
 
 const dizionarioCifrato = {
-    "NODE_01": [65, 80, 73],                                                                         
-    "NODE_02": [72, 84, 77, 76],                                                                     
-    "NODE_03": [74, 65, 86, 65],                                                                     
-    "NODE_04": [66, 65, 83, 75, 69, 84],                                                             
-    "NODE_05": [68, 69, 76, 80, 72, 73],                                                             
-    "NODE_06": [67, 79, 77, 77, 73, 84],                                                             
-    "NODE_07": [72, 79, 77, 69, 65, 83, 83, 73, 83, 84, 65, 78, 84],                                 
-    "NODE_08": [68, 79, 67, 75, 69, 82],                                                             
-    "NODE_09": [65, 78, 83, 73, 66, 76, 69],                                                         
+    "NODE_01": [65, 80, 73],                                                                           
+    "NODE_02": [72, 84, 77, 76],                                                                      
+    "NODE_03": [74, 65, 86, 65],                                                                      
+    "NODE_04": [66, 65, 83, 75, 69, 84],                                                              
+    "NODE_05": [68, 69, 76, 80, 72, 73],                                                              
+    "NODE_06": [67, 79, 77, 77, 73, 84],                                                              
+    "NODE_07": [72, 79, 77, 69, 65, 83, 83, 73, 83, 84, 65, 78, 84],                                  
+    "NODE_08": [68, 79, 67, 75, 69, 82],                                                              
+    "NODE_09": [65, 78, 83, 73, 66, 76, 69],                                                          
     "NODE_10": [74, 87, 84],                                                                          
-    "NODE_11": [77, 65, 82, 75, 68, 79, 87, 78],                                                     
-    "NODE_12": [83, 83, 72],                                                                         
-    "NODE_13": [74, 65, 86, 65, 83, 67, 82, 73, 80, 84],                                             
-    "NODE_14": [77, 89, 83, 81, 76],                                                                 
-    "NODE_15": [80, 85, 76, 76],                                                                     
-    "NODE_16": [80, 89, 84, 72, 79, 78],                                                             
-    "NODE_17": [67, 72, 77, 79, 68],                                                                 
-    "NODE_18": [78, 71, 73, 78, 88],                                                                 
-    "NODE_19": [77, 79, 78, 71, 79, 68, 66],                                                         
-    "NODE_20": [67, 79, 77, 80, 79, 83, 69],                                                         
-    "NODE_21": [69, 67, 50],                                                                         
-    "NODE_22": [75, 85, 66, 69, 82, 78, 69, 84, 69, 83],                                             
-    "NODE_23": [67, 81, 82, 83],                                                                     
-    "NODE_24": [54, 53, 48, 50],                                                                     
-    "NODE_25": [80, 73, 72, 79, 76, 69]                                                              
+    "NODE_11": [77, 65, 82, 75, 68, 79, 87, 78],                                                      
+    "NODE_12": [83, 83, 72],                                                                          
+    "NODE_13": [74, 65, 86, 65, 83, 67, 82, 73, 80, 84],                                              
+    "NODE_14": [77, 89, 83, 81, 76],                                                                  
+    "NODE_15": [80, 85, 76, 76],                                                                      
+    "NODE_16": [80, 89, 84, 72, 79, 78],                                                              
+    "NODE_17": [67, 72, 77, 79, 68],                                                                  
+    "NODE_18": [78, 71, 73, 78, 88],                                                                  
+    "NODE_19": [77, 79, 78, 71, 79, 68, 66],                                                          
+    "NODE_20": [67, 79, 77, 80, 79, 83, 69],                                                          
+    "NODE_21": [69, 67, 50],                                                                          
+    "NODE_22": [75, 85, 66, 69, 82, 78, 69, 84, 69, 83],                                              
+    "NODE_23": [67, 81, 82, 83],                                                                      
+    "NODE_24": [54, 53, 48, 50],                                                                      
+    "NODE_25": [80, 73, 72, 79, 76, 69]                                                               
 };
 
 let currentChallenge = {};
@@ -300,11 +300,11 @@ function handleLetterGuess(letter, buttonElement) {
     document.getElementById('used-letters').textContent = guessedLetters.join(", ");
     
     const sequenzaCaratteri = dizionarioCifrato[currentChallenge.id];
-    let azzeccata = false;
+    let azzeccata = false; // Dichiarata correttamente
 
     for (let i = 0; i < sequenzaCaratteri.length; i++) {
         if (String.fromCharCode(sequenzaCaratteri[i]) === letter) {
-            azzeccata = true;
+            azzeccata = true; // <--- CORRETTO: Ora la variabile coincide perfettamente
             break;
         }
     }
@@ -330,35 +330,32 @@ function handleLetterGuess(letter, buttonElement) {
         }
     }
 }
-
 // ==========================================
 // 5. SCHERMATA FINALE VITTORIA: BLACKOUT TOTALE DEL SITO
 // ==========================================
 function mostraSchermataHacked() {
-    // Iniettiamo CSS per resettare i margini del body e forzare lo sfondo nero atomico su tutto il viewport
     document.body.style.margin = "0";
     document.body.style.padding = "0";
     document.body.style.background = "#020403";
     document.body.style.width = "100vw";
     document.body.style.height = "100vh";
-    document.body.style.overflow = "hidden"; // Impedisce lo scroll residuo di altre sezioni passate
+    document.body.style.overflow = "hidden";
 
-    // Rimpiazziamo l'INTERO body del sito con la schermata a schermo intero
     document.body.innerHTML = `
 <div id="terminal-hacked-screen" style="font-family: monospace; text-align: center; color: #ff3333; width: 100vw; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; box-sizing: border-box; background: #020403; position: fixed; top: 0; left: 0; z-index: 999999;">
 <pre style="font-size: 14px; line-height: 1.2; display: inline-block; text-align: left; color: #ff3333; margin-bottom: 25px;">
-         ______
-      .-"      "-.
-     /            \\
-    |              |
-    |,  .-.  .-.  ,|
-    | )(__/  \\__)( |
-    |/     /\\     \\|
-    (_     ^^     _)
-     \\__|IIIIII|__/
-      | \\IIIIII/ |
-      \\          /
-       \`--------\`
+          ______
+       .-"      "-.
+      /            \\
+     |              |
+     |,  .-.  .-.  ,|
+     | )(__/  \\__)( |
+     |/     /\\     \\|
+     (_      ^^      _)
+      \\__|IIIIII|__/
+       | \\IIIIII/ |
+       \\          /
+        \`--------\`
 </pre>
     <h1 style="letter-spacing: 5px; margin: 15px 0; font-size: 32px; text-shadow: 0 0 12px #ff3333;">[SYSTEM HACKED]</h1>
     <p style="color: #33ff33; font-size: 18px; font-weight: bold; margin: 5px 0;">ROOT ACCESS GRANTED // FULL PORTFOLIO TAKEOVER</p>
@@ -400,7 +397,6 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-
 // ==========================================
 // NUOVO MINI-GIOCO: RIGORE DEL FANTACALCIO
 // ==========================================
@@ -409,32 +405,29 @@ function tiraRigore(direzioneUtente) {
     const bottoni = document.querySelectorAll('#striker-controls .terminal-btn');
     if (!log) return;
 
-    // Disabilita temporaneamente i bottoni durante l'animazione del tiro
     bottoni.forEach(btn => btn.disabled = true);
     log.textContent = `[LAUNCH]: Il pallone è partito verso: ${direzioneUtente.toUpperCase()}...`;
     log.style.color = "#ffb300";
 
     setTimeout(() => {
         const direzioniPortiere = ['sinistra', 'centro', 'destra'];
-        // Scelta casuale del portiere
         const direzionePortiere = direzioniPortiere[Math.floor(Math.random() * direzioniPortiere.length)];
 
         if (direzioneUtente === direzionePortiere) {
-            log.textContent = `[PARATA]: Il portiere si è tuffato a ${direzionePortiere} e ha bloccato il tiro! Malus applicato.`;
+            log.textContent = `[PARATA]: Il portiere si è tuffato a ${direzionePortiere} e ha intercettato il tiro!`;
             log.style.color = "#ff3333";
-            modificaPunteggio(-30); // Sottrae punti in caso di parata
+            // CORREZIONE: Rimossa la penalità al punteggio globale
         } else {
-            log.textContent = `[GOAL!!]: Il portiere è andato a ${direzionePortiere} mentre tu hai piazzato la palla a ${direzioneUtente}! +3 +1 (+70 PTS di sistema).`;
+            log.textContent = `[GOAL!!]: Piazzata magistralmente a ${direzioneUtente}! Il portiere si è tuffato a ${direzionePortiere}. (+3 Punti Bonus in classifica!)`;
             log.style.color = "#33ff33";
-            modificaPunteggio(70); // Aggiunge 70 punti al System Score globale
+            // CORREZIONE: Rimossa la ricompensa al punteggio globale
         }
 
-        // Riattiva i bottoni per un altro tentativo dopo 1.5 secondi
         setTimeout(() => {
             bottoni.forEach(btn => btn.disabled = false);
             log.textContent = `[STATUS]: Palla riposizionata sul dischetto. Pronto per un nuovo tiro.`;
             log.style.color = "#33ff33";
         }, 1500);
 
-    }, 1000); // 1 secondo di suspense per il tiro
+    }, 1000);
 }
