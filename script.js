@@ -35,6 +35,12 @@ const progettiJSON = [
         "descrizione": "Firmware IoT sviluppato per schedine Wemos D1 Mini e sensore BME680. Gestisce il monitoraggio in tempo reale di temperatura e qualità dell'aria, l'autenticazione tramite un Access Point di configurazione dedicato (WiFiManager) e l'invio dei dati via MQTT. Include la predisposizione per case stampabile in 3D.",
         "link_github": "https://github.com/jordan1982/temperaturino",
         "tag": "C++ / Arduino"
+    },
+    {
+        "titolo": "Tabularize_JSON",
+        "descrizione": "Applicazione web client-side pura progettata per il parsing di array JSON grezzi e la loro conversione istantanea in tabelle HTML interattive e file CSV. L'intero processo di elaborazione ed esportazione avviene localmente nel browser dell'utente, garantendo la massima privacy e zero passaggi sul server.",
+        "link_github": "https://github.com/jordan1982/tabularize-json",
+        "tag": "JavaScript / Web App"
     }
 ];
 
