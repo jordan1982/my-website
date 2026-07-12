@@ -207,3 +207,8 @@ a:hover {
 html {
     scroll-behavior: smooth;
 }
+
+.project-links a {
+    margin-right: 15px;
+    text-transform: uppercase;
+}

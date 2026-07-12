@@ -23,23 +23,36 @@ function modificaPunteggio(valore) {
 // ==========================================
 // 1. DATABASE PROGETTI (FORMATO OGGETTO JSON)
 // ==========================================
+// ==========================================
+// 1. DATABASE PROGETTI (FORMATO OGGETTO JSON)
+// ==========================================
 const progettiJSON = [
+    {
+        "titolo": "Rent_Metrics",
+        "descrizione": "Applicazione di simulazione finanziaria per investimenti immobiliari. Permette di calcolare il ROI standard e inverso, gestire scenari con mutuo o ristrutturazioni, ammortamenti e identificare con precisione il Break-Even Point dell'operazione.",
+        "link_github": "https://github.com/jordan1982/rent-metrics",
+        "link_sito": "https://jordan1982.github.io/rent-metrics/",
+        "tag": "React / Web App"
+    },
     {
         "titolo": "FantaReminder_Bot",
         "descrizione": "Un assistente automatizzato su Telegram dedicato ai fantallenatori: analizza i calendari di Serie A e invia notifiche push mirate prima dell'inizio di ogni turno di campionato per non dimenticare mai la formazione.",
         "link_github": "https://t.me/fantareminder",
+        "link_sito": null,
         "tag": "Telegram Bot"
     },
     {
         "titolo": "Temperaturino_Sensor",
         "descrizione": "Firmware IoT sviluppato per schedine Wemos D1 Mini e sensore BME680. Gestisce il monitoraggio in tempo reale di temperatura e qualità dell'aria, l'autenticazione tramite un Access Point di configurazione dedicato (WiFiManager) e l'invio dei dati via MQTT. Include la predisposizione per case stampabile in 3D.",
         "link_github": "https://github.com/jordan1982/temperaturino",
+        "link_sito": null,
         "tag": "C++ / Arduino"
     },
     {
         "titolo": "Tabularize_JSON",
         "descrizione": "Applicazione web client-side pura progettata per il parsing di array JSON grezzi e la loro conversione istantanea in tabelle HTML interattive e file CSV. L'intero processo di elaborazione ed esportazione avviene localmente nel browser dell'utente, garantendo la massima privacy e zero passaggi sul server.",
         "link_github": "https://github.com/jordan1982/tabularize-json",
+        "link_sito": "https://jordan1982.github.io/tabularize-JSON/",
         "tag": "JavaScript / Web App"
     }
 ];
@@ -53,13 +66,26 @@ function caricaProgetti() {
         const card = document.createElement('div');
         card.className = 'project-card';
         
-        // CONTROLLO DINAMICO: Se il tag è "Telegram Bot" cambia il testo del link
-        const testoLink = progetto.tag === "Telegram Bot" ? "[Visita Canale]" : "[Vedi Codice]";
+        // Costruiamo i link dinamicamente in base a cosa è presente nel JSON
+        let stringaLink = '';
+
+        if (progetto.tag === "Telegram Bot") {
+            stringaLink = `<a href="${progetto.link_github}" target="_blank">[Visita Canale]</a>`;
+        } else {
+            // Se c'è il link del sito live, lo inseriamo per primo
+            if (progetto.link_sito) {
+                stringaLink += `<a href="${progetto.link_sito}" target="_blank">[Apri Sito]</a> &nbsp;&nbsp;`;
+            }
+            // Inseriamo il link al codice sorgente su GitHub
+            if (progetto.link_github) {
+                stringaLink += `<a href="${progetto.link_github}" target="_blank">[Vedi Codice]</a>`;
+            }
+        }
 
         card.innerHTML = `
             <h3>${progetto.titolo} [${progetto.tag}]</h3>
             <p>${progetto.descrizione}</p>
-            <p><a href="${progetto.link_github}" target="_blank">${testoLink}</a></p>
+            <p class="project-links">${stringaLink}</p>
         `;
         container.appendChild(card);
     });
