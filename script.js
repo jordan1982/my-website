@@ -23,10 +23,21 @@ function modificaPunteggio(valore) {
 // ==========================================
 // 1. DATABASE PROGETTI (FORMATO OGGETTO JSON)
 // ==========================================
-// ==========================================
-// 1. DATABASE PROGETTI (FORMATO OGGETTO JSON)
-// ==========================================
 const progettiJSON = [
+    {
+        "titolo": "SignFlow",
+        "descrizione": "Editor PDF interattivo e suite di firma digitale basato su React. Consente la compilazione di documenti, l'applicazione di forme di oscuramento/redazione del testo e il flattening di sicurezza direttamente lato client.",
+        "link_github": "https://github.com/jordan1982/pdf-compiler-free",
+        "link_sito": "https://signflow.igorlabs.dev",
+        "tag": "React / Web App"
+    },
+    {
+        "titolo": "ShareBack",
+        "descrizione": "Piattaforma web per la condivisione rapida ed efficiente di progetti e la ricezione di feedback dagli utenti. Progettata con focus sulla privacy dell'utente e la facilità di utilizzo immediato.",
+        "link_github": "https://github.com/jordan1982/shareback",
+        "link_sito": "https://shareback.igorlabs.dev",
+        "tag": "React / Web App"
+    },
     {
         "titolo": "Rent_Metrics",
         "descrizione": "Applicazione di simulazione finanziaria per investimenti immobiliari. Permette di calcolare il ROI standard e inverso, gestire scenari con mutuo o ristrutturazioni, ammortamenti e identificare con precisione il Break-Even Point dell'operazione.",
@@ -66,17 +77,14 @@ function caricaProgetti() {
         const card = document.createElement('div');
         card.className = 'project-card';
         
-        // Costruiamo i link dinamicamente in base a cosa è presente nel JSON
         let stringaLink = '';
 
         if (progetto.tag === "Telegram Bot") {
             stringaLink = `<a href="${progetto.link_github}" target="_blank">[Visita Canale]</a>`;
         } else {
-            // Se c'è il link del sito live, lo inseriamo per primo
             if (progetto.link_sito) {
                 stringaLink += `<a href="${progetto.link_sito}" target="_blank">[Apri Sito]</a> &nbsp;&nbsp;`;
             }
-            // Inseriamo il link al codice sorgente su GitHub
             if (progetto.link_github) {
                 stringaLink += `<a href="${progetto.link_github}" target="_blank">[Vedi Codice]</a>`;
             }
@@ -119,7 +127,6 @@ function runEcoCleaner() {
         if (mappa[posOmino] !== " ") {
             saccoRifiuti++;
             log.textContent = `[EVENT]: Rifiuto raccolto! Sacco: ${saccoRifiuti}/4`;
-            // CORREZIONE: Rimossa la modifica al punteggio globale
         }
 
         let rigaTesta = new Array(22).fill(" ");
@@ -190,7 +197,6 @@ function runPerfectParabola() {
         } else if (progress >= 100) {
             log.textContent = `[STATUS]: SWISH! // Canestro perfetto registrato sul target 🗑️`;
             clearInterval(animation);
-            // CORREZIONE: Rimossa la modifica al punteggio globale
             if (btn) btn.disabled = false;
         }
     }, 16); 
@@ -332,11 +338,11 @@ function handleLetterGuess(letter, buttonElement) {
     document.getElementById('used-letters').textContent = guessedLetters.join(", ");
     
     const sequenzaCaratteri = dizionarioCifrato[currentChallenge.id];
-    let azzeccata = false; // Dichiarata correttamente
+    let azzeccata = false;
 
     for (let i = 0; i < sequenzaCaratteri.length; i++) {
         if (String.fromCharCode(sequenzaCaratteri[i]) === letter) {
-            azzeccata = true; // <--- CORRETTO: Ora la variabile coincide perfettamente
+            azzeccata = true;
             break;
         }
     }
@@ -362,6 +368,7 @@ function handleLetterGuess(letter, buttonElement) {
         }
     }
 }
+
 // ==========================================
 // 5. SCHERMATA FINALE VITTORIA: BLACKOUT TOTALE DEL SITO
 // ==========================================
@@ -448,11 +455,9 @@ function tiraRigore(direzioneUtente) {
         if (direzioneUtente === direzionePortiere) {
             log.textContent = `[PARATA]: Il portiere si è tuffato a ${direzionePortiere} e ha intercettato il tiro!`;
             log.style.color = "#ff3333";
-            // CORREZIONE: Rimossa la penalità al punteggio globale
         } else {
             log.textContent = `[GOAL!!]: Piazzata magistralmente a ${direzioneUtente}! Il portiere si è tuffato a ${direzionePortiere}. (+3 Punti Bonus in classifica!)`;
             log.style.color = "#33ff33";
-            // CORREZIONE: Rimossa la ricompensa al punteggio globale
         }
 
         setTimeout(() => {
